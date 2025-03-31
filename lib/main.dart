@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio_runny/config/router/app_router.dart';
+import 'package:portfolio_runny/config/theme/app_theme.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,10 +15,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,
       title: 'Portfolio Runny',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
-      ),
+      theme: 
+      AppTheme.darkTheme,
+      
      routerConfig: appRouter,
     );
   }
