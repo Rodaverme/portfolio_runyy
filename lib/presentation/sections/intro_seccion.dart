@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolio_runny/presentation/widgets/backaground_page.dart';
 
 class IntroSeccion extends StatelessWidget {
   const IntroSeccion({super.key});
@@ -10,7 +11,7 @@ class IntroSeccion extends StatelessWidget {
     return Stack(children: [
       Positioned.fill(
         child: CustomPaint(
-          painter: _BackgroundPainter(),
+          painter: BackgroundPainter(),
         ),
       ),
       Container(
@@ -60,46 +61,4 @@ class IntroSeccion extends StatelessWidget {
   }
 }
 
-class _BackgroundPainter extends CustomPainter {
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..color = Colors.purple.withOpacity(0.1)
-      ..style = PaintingStyle.fill;
 
-    // Dibuja círculos en diferentes posiciones
-    canvas.drawCircle(
-      Offset(size.width * 0.2, size.height * 0.3),
-      size.width * 0.15,
-      paint,
-    );
-
-    canvas.drawCircle(
-      Offset(size.width * 0.8, size.height * 0.7),
-      size.width * 0.1,
-      paint,
-    );
-
-    // Dibuja un rectángulo rotado
-    final rect = Rect.fromCenter(
-      center: Offset(size.width * 0.7, size.height * 0.2),
-      width: size.width * 0.2,
-      height: size.width * 0.2,
-    );
-    canvas.save();
-    canvas.rotate(0.5);
-    canvas.drawRect(rect, paint);
-    canvas.restore();
-
-    // Dibuja un triángulo
-    final path = Path()
-      ..moveTo(size.width * 0.3, size.height * 0.8)
-      ..lineTo(size.width * 0.4, size.height * 0.6)
-      ..lineTo(size.width * 0.2, size.height * 0.7)
-      ..close();
-    canvas.drawPath(path, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) => false;
-}

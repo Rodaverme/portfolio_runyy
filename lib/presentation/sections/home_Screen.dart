@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio_runny/presentation/sections/aboutme_seccion.dart';
 import 'package:portfolio_runny/presentation/sections/intro_seccion.dart';
+import 'package:portfolio_runny/presentation/sections/works_done.dart';
 import 'package:portfolio_runny/presentation/widgets/menu_header.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -39,13 +40,9 @@ class _HomescreenState extends State<HomeScreen> {
         Container(
           height: double.maxFinite,
           width: double.maxFinite,
-          color: Colors.blue,
+          
         ),
-        Container(
-          height: double.maxFinite,
-          width: double.maxFinite,
-          color: Colors.green,
-        ),
+        WorksDone(),
       ]),
     );
   }

@@ -16,9 +16,9 @@ class MenuHeader extends StatelessWidget {
               Placeholder(),
               TextButton(onPressed: (){}, child: Text('Inicio',),),
               TextButton(onPressed: (){}, child: Text('Quien soy')),
-              TextButton(onPressed: (){}, child: Text('Experiencia')),
               TextButton(onPressed: (){}, child: Text('Servicios')),
               TextButton(onPressed: (){}, child: Text('Trabajos realizados')),
+              TextButton(onPressed: (){}, child: Text('Contactactame')),
               
             ],
           ),
