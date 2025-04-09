@@ -40,9 +40,8 @@ class _HomescreenState extends State<HomeScreen> {
         Container(
           height: double.maxFinite,
           width: double.maxFinite,
-          
         ),
-        WorksDone(),
+        WorksDone()
       ]),
     );
   }

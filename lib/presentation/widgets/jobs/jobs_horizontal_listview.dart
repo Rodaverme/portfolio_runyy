@@ -1,54 +1,47 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:portfolio_runny/domain/entities/projects.dart';
 
-class JobsHorizontalListview extends StatefulWidget {
-  const JobsHorizontalListview({super.key});
+import '../../sections/details_project.dart';
 
-  @override
-  State<JobsHorizontalListview> createState() => _JobsHorizontalListviewState();
-}
+class JobsHorizontalListview extends StatelessWidget {
+  final List<Projects> projects;
 
-class _JobsHorizontalListviewState extends State<JobsHorizontalListview> {
+  JobsHorizontalListview({super.key, required this.projects});
+
   final ScrollController scrollController = ScrollController();
-
-  // Lista de imágenes (URLs o rutas locales)
-  final List<String> jobImages = [
-    'assets/SMURFIT.png',
-    'assets/SMURFIT.png',
-    'assets/SMURFIT.png',
-    'assets/SMURFIT.png',
-    'assets/SMURFIT.png',
-    'assets/SMURFIT.png',
-    'assets/SMURFIT.png',
-    'assets/SMURFIT.png',
-  ];
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 350,
-      child: Column(
-        children: [
-          Expanded(
-            child: MouseRegion(
-              cursor: SystemMouseCursors.click,
-              child: GestureDetector(
-                onHorizontalDragUpdate: (details) {
-                  scrollController
-                      .jumpTo(scrollController.offset - details.delta.dx);
+      child: MouseRegion(
+        cursor: SystemMouseCursors.click,
+        child: GestureDetector(
+          onHorizontalDragUpdate: (details) {
+            scrollController.jumpTo(scrollController.offset - details.delta.dx);
+          },
+          child: ListView.builder(
+            controller: scrollController,
+            scrollDirection: Axis.horizontal,
+            itemCount: projects.length,
+            itemBuilder: (context, index) {
+              final project = projects[index];
+              return GestureDetector(
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => DetailsProject(
+                        project: project,
+                      ),
+                    ),
+                  );
                 },
-                child: ListView.builder(
-                  controller: scrollController,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: jobImages.length,
-                  itemBuilder: (context, index) {
-                    return _JobCard(imageUrl: jobImages[index]);
-                  },
-                ),
-              ),
-            ),
+                child: _JobCard(project: project),
+              );
+            },
           ),
-        ],
+        ),
       ),
     );
   }
@@ -56,9 +49,9 @@ class _JobsHorizontalListviewState extends State<JobsHorizontalListview> {
 
 // Widget para cada tarjeta con imagen
 class _JobCard extends StatelessWidget {
-  final String imageUrl;
+  final Projects project;
 
-  const _JobCard({required this.imageUrl});
+  const _JobCard({required this.project});
 
   @override
   Widget build(BuildContext context) {
@@ -80,7 +73,7 @@ class _JobCard extends StatelessWidget {
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
               child: Image.network(
-                imageUrl,
+                project.imagen,
                 fit: BoxFit.cover,
                 errorBuilder: (context, error, stackTrace) => const Center(
                   child: Icon(Icons.broken_image, size: 50, color: Colors.red),
@@ -105,8 +98,8 @@ class _JobCard extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.asset(
-                  'assets/smurfit-kappa.jpg',
+                child: Image.network(
+                  project.logo,
                   fit: BoxFit.fill,
                 ),
               ),
@@ -134,32 +127,42 @@ class _JobCard extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            'Nombre del trabajo',
-                            style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                            project.nombre,
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge
+                                ?.copyWith(
                                   color: Colors.white,
                                   fontWeight: FontWeight.bold,
                                 ),
                           ),
                           const SizedBox(height: 5),
                           Text(
-                            'Descripción breve del trabajo realizado.',
-                            style: Theme.of(context).textTheme.bodyMedium?.copyWith(
+                            project.descripcion.length > 50
+                                ? '${project.descripcion.substring(0, 35)}...'
+                                : project.descripcion,
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyMedium
+                                ?.copyWith(
                                   color: Colors.white70,
                                 ),
-                          ),
+                          )
                         ],
                       ),
-                      SizedBox(width: 5),
-                      Icon(Icons.desktop_windows_outlined),
-                      SizedBox(width: 5),
-                      Icon(
-                        Icons.android,
-                        color: Colors.green,
-                      ),
-                      SizedBox(width: 5,),
-                      Icon(
-                        Icons.apple,
-                        color: Colors.black,
+                      const SizedBox(width: 5),
+                      Wrap(
+                        spacing: 5, // Espacio horizontal entre iconos
+                        children: [
+                          if (project.isDektop == true)
+                            const Icon(
+                              Icons.desktop_windows_sharp,
+                            ),
+                          if (project.isAndroid == true)
+                            const Icon(Icons.android, color: Colors.green),
+                          if (project.isIos == true)
+                            const Icon(Icons.apple, color: Colors.black),
+                        ],
                       ),
                     ],
                   ),
@@ -169,36 +172,6 @@ class _JobCard extends StatelessWidget {
           )
         ],
       ),
-    );
-  }
-}
-
-class _Title extends StatelessWidget {
-  final String? title;
-  final String? subTitle;
-
-  const _Title({this.title, this.subTitle});
-
-  @override
-  Widget build(BuildContext context) {
-    final titleStyle = Theme.of(context).textTheme.titleLarge;
-    return Container(
-      padding: const EdgeInsets.only(top: 10),
-      margin: const EdgeInsets.symmetric(horizontal: 10),
-      child: Row(children: [
-        if (title != null)
-          Text(
-            title!,
-            style: titleStyle,
-          ),
-        const Spacer(),
-        if (subTitle != null)
-          FilledButton.tonal(
-            style: const ButtonStyle(visualDensity: VisualDensity.compact),
-            onPressed: () {},
-            child: Text(subTitle!),
-          ),
-      ]),
     );
   }
 }
