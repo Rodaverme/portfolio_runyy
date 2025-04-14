@@ -1,27 +1,126 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
+import 'package:go_router/go_router.dart';
 
 class MenuHeader extends StatelessWidget {
   const MenuHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
+    final isMobile = MediaQuery.of(context).size.width < 600;
+
     return Container(
-          padding: EdgeInsets.symmetric(horizontal: 20,vertical: 15) ,
-          width: double.maxFinite,
-          height: 150,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            children: [
-              Placeholder(),
-              TextButton(onPressed: (){}, child: Text('Inicio',),),
-              TextButton(onPressed: (){}, child: Text('Quien soy')),
-              TextButton(onPressed: (){}, child: Text('Servicios')),
-              TextButton(onPressed: (){}, child: Text('Trabajos realizados')),
-              TextButton(onPressed: (){}, child: Text('Contactactame')),
-              
-            ],
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+      width: double.infinity,
+      height: 150,
+      child: isMobile ? _MobileMenu() : _DesktopMenu(),
+    );
+  }
+}
+
+class _DesktopMenu extends StatelessWidget {
+  const _DesktopMenu();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceAround,
+      children: const [
+        Placeholder(fallbackWidth: 60, fallbackHeight: 60),
+        MenuButton(
+          label: 'Inicio',
+          route: '/',
+        ),
+        MenuButton(
+          label: 'Quien soy',
+          route: 'aboutme',
+        ),
+        MenuButton(
+          label: 'Servicios',
+          route: 'services',
+        ),
+        MenuButton(label: 'Trabajos realizados', route: 'works'),
+        MenuButton(
+          label: 'Contactactame',
+          route: '/',
+        ),
+      ],
+    );
+  }
+}
+
+class _MobileMenu extends StatelessWidget {
+  const _MobileMenu();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        const Placeholder(fallbackWidth: 40, fallbackHeight: 40),
+        Builder(
+          builder: (context) => IconButton(
+            icon: const Icon(Icons.menu),
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                builder: (_) => const _MobileMenuSheet(),
+              );
+            },
           ),
-        );
+        )
+      ],
+    );
+  }
+}
+
+class _MobileMenuSheet extends StatelessWidget {
+  const _MobileMenuSheet();
+
+  @override
+  Widget build(BuildContext context) {
+    return SafeArea(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: const [
+          MenuButton(
+            label: 'Inicio',
+            route: '/',
+          ),
+          MenuButton(
+            label: 'Quien soy',
+            route: 'aboutme',
+          ),
+          MenuButton(
+            label: 'Servicios',
+            route: 'services',
+          ),
+          MenuButton(label: 'Trabajos realizados', route: 'works'),
+          MenuButton(
+            label: 'Contactactame',
+            route: '/',
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class MenuButton extends StatelessWidget {
+  final String label;
+  final String route;
+
+  const MenuButton({super.key, required this.label, required this.route});
+
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: () {
+        context.go('/$route');
+        // Aquí puedes agregar la navegación correspondiente
+        ScaffoldMessenger.of(context)
+            .showSnackBar(SnackBar(content: Text('Navegando a "$label"...')));
+      },
+      child: Text(label),
+    );
   }
 }

@@ -76,7 +76,7 @@ class _CustomSliverAppBar extends StatelessWidget {
         expandedHeight: size.height * 0.7,
         foregroundColor: Colors.white,
         title: Text(
-          project.nombre ?? 'Default Title',
+          project.nombre ,
           style: Theme.of(context).textTheme.displaySmall,
           textAlign: TextAlign.start,
         ),

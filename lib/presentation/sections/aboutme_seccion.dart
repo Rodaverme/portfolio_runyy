@@ -34,7 +34,7 @@ class AboutmeSeccion extends StatelessWidget {
                         offset: Offset(0, 8),
                       ),
                     ],
-                    border: Border.all(color: Colors.white, width: 4),
+                    border: Border.all(color: Colors.deepPurple, width: 2),
                   ),
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(20),

@@ -1,4 +1,5 @@
 class Projects {
+  final String slug;
   final String descripcion;
   final String imagen;
   final bool? isAndroid;
@@ -9,6 +10,7 @@ class Projects {
   final String nombre;
 
   Projects({
+    required this.slug,
     required this.descripcion,
     required this.imagen,
     this.isAndroid,

@@ -1,8 +1,7 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:portfolio_runny/domain/entities/projects.dart';
-
-import '../../sections/details_project.dart';
 
 class JobsHorizontalListview extends StatelessWidget {
   final List<Projects> projects;
@@ -29,13 +28,7 @@ class JobsHorizontalListview extends StatelessWidget {
               final project = projects[index];
               return GestureDetector(
                 onTap: () {
-                  Navigator.of(context).push(
-                    MaterialPageRoute(
-                      builder: (context) => DetailsProject(
-                        project: project,
-                      ),
-                    ),
-                  );
+                  context.pushReplacement('/details/${project.slug}');
                 },
                 child: _JobCard(project: project),
               );

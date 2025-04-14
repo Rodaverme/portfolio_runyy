@@ -11,4 +11,9 @@ class ProjectRepositoryImpl extends ProjectRepositories {
   Future<List<Projects>> getProjects() {
     return projectDatasource.getProjects();
   }
+  
+  @override
+  Future<Projects?> getProjectBySlug(String slug) {
+    return projectDatasource.getProjectBySlug(slug);
+  }
 }
