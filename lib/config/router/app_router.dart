@@ -1,4 +1,3 @@
-
 import 'package:go_router/go_router.dart';
 
 import 'package:portfolio_runny/presentation/sections/project_details_page.dart';
@@ -24,13 +23,18 @@ final appRouter = GoRouter(
       path: '/works',
       builder: (context, state) => HomeScreen(currentPath: '/works'),
     ),
-   GoRoute(
+    GoRoute(
       path: '/details/:slug',
       name: 'project-details',
       builder: (context, state) {
         final slug = state.pathParameters['slug']!;
-        return ProjectDetailsPage(slug: slug,); // 👈 Aquí usas tu ConsumerWidget
+        return ProjectDetailsPage(
+          slug: slug,
+        ); // 👈 Aquí usas tu ConsumerWidget
       },
     ),
+    GoRoute(
+        path: '/contact',
+        builder: (context, state) => HomeScreen(currentPath: '/contact')),
   ],
 );

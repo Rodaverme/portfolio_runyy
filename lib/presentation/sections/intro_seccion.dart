@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:portfolio_runny/presentation/widgets/backaground_page.dart';
 
 class IntroSeccion extends StatelessWidget {
@@ -46,7 +47,9 @@ class IntroSeccion extends StatelessWidget {
               height: 20,
             ),
             TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  context.go('/contact');
+                },
                 child: Text(
                   'Contactame',
                   style: TextStyle(

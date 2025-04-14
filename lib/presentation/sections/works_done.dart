@@ -52,9 +52,10 @@ class WorksDone extends ConsumerWidget {
                     data: (projects) => ListView(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       children: [
+                        const SizedBox(height: 60), 
                         JobsHorizontalListview(projects: projects),
-                        const SizedBox(height: 20), // Espaciado entre las listas
-                        JobsHorizontalListview(projects: projects),
+                        // Espaciado entre las listas
+                        
                       ],
                     ),
                     loading: () => const Center(child: CircularProgressIndicator()),

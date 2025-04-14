@@ -25,13 +25,17 @@ class _DesktopMenu extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: const [
-        Placeholder(fallbackWidth: 60, fallbackHeight: 60),
+        Image(
+          image: AssetImage('assets/logo-runny-dev.png'),
+          width: 100,
+          height: 80,
+        ),
         MenuButton(
           label: 'Inicio',
           route: '/',
         ),
         MenuButton(
-          label: 'Quien soy',
+          label: '¿Quien soy?',
           route: 'aboutme',
         ),
         MenuButton(
@@ -41,7 +45,7 @@ class _DesktopMenu extends StatelessWidget {
         MenuButton(label: 'Trabajos realizados', route: 'works'),
         MenuButton(
           label: 'Contactactame',
-          route: '/',
+          route: 'contact',
         ),
       ],
     );
@@ -56,7 +60,11 @@ class _MobileMenu extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        const Placeholder(fallbackWidth: 40, fallbackHeight: 40),
+        const Image(
+          image: AssetImage('assets/logo-runny-dev.png'),
+          width: 60,
+          height: 60,
+        ),
         Builder(
           builder: (context) => IconButton(
             icon: const Icon(Icons.menu),
@@ -87,7 +95,7 @@ class _MobileMenuSheet extends StatelessWidget {
             route: '/',
           ),
           MenuButton(
-            label: 'Quien soy',
+            label: '¿Quien soy?',
             route: 'aboutme',
           ),
           MenuButton(
@@ -97,7 +105,7 @@ class _MobileMenuSheet extends StatelessWidget {
           MenuButton(label: 'Trabajos realizados', route: 'works'),
           MenuButton(
             label: 'Contactactame',
-            route: '/',
+            route: 'contact',
           ),
         ],
       ),
@@ -117,8 +125,6 @@ class MenuButton extends StatelessWidget {
       onPressed: () {
         context.go('/$route');
         // Aquí puedes agregar la navegación correspondiente
-        ScaffoldMessenger.of(context)
-            .showSnackBar(SnackBar(content: Text('Navegando a "$label"...')));
       },
       child: Text(label),
     );

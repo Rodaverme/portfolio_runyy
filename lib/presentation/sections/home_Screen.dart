@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:portfolio_runny/presentation/sections/aboutme_seccion.dart';
+import 'package:portfolio_runny/presentation/sections/contact_me.dart';
 import 'package:portfolio_runny/presentation/sections/intro_seccion.dart';
 import 'package:portfolio_runny/presentation/sections/service_seccion.dart';
 import 'package:portfolio_runny/presentation/sections/works_done.dart';
@@ -20,7 +21,7 @@ class _HomescreenState extends State<HomeScreen> {
     '/aboutme': 1,
     '/services': 2,
     '/works': 3,
-    
+    '/contact': 4,
   };
 
   @override
@@ -52,9 +53,9 @@ class _HomescreenState extends State<HomeScreen> {
           AboutmeSeccion(),
           ServiceSeccion(),
           WorksDone(),
+          ContactMe()
         ],
       ),
     );
   }
 }
-
