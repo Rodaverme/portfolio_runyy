@@ -9,6 +9,7 @@ String projectsResponseToJson(Map<String, ProjectsResponse> data) =>
         Map.from(data).map((k, v) => MapEntry<String, dynamic>(k, v.toJson())));
 
 class ProjectsResponse {
+ 
   final String slug;
   final String descripcion;
   final String imagen;
@@ -20,6 +21,7 @@ class ProjectsResponse {
   final String nombre;
 
   ProjectsResponse({
+   
     required this.slug,
     required this.descripcion,
     required this.imagen,

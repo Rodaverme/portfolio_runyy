@@ -8,6 +8,7 @@ class Projects {
   final bool? isWeb;
   final String logo;
   final String nombre;
+  
 
   Projects({
     required this.slug,

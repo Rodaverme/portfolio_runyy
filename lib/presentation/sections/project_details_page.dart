@@ -19,7 +19,7 @@ class ProjectDetailsPage extends ConsumerWidget {
               body: Center(child: Text('Proyecto no encontrado')));
         }
 
-        return DetailsProject(project: project);
+        return DetailsProject(project: project,);
       },
       loading: () =>
           const Scaffold(body: Center(child: CircularProgressIndicator())),

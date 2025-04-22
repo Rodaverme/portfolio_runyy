@@ -1,12 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:portfolio_runny/presentation/widgets/project_details_slideshow.dart';
 import '../../domain/entities/projects.dart';
 
 class DetailsProject extends StatelessWidget {
   final Projects project;
 
+
   const DetailsProject({
     super.key,
-    required this.project,
+    required this.project, 
   });
 
   @override
@@ -28,29 +30,9 @@ class DetailsProject extends StatelessWidget {
                       project.descripcion,
                       style: Theme.of(context).textTheme.bodyLarge,
                     ),
-                   
                     const SizedBox(height: 20),
-                    Row(
-                      children: [
-                        if (project.isDektop == true)
-                          const Icon(Icons.desktop_windows),
-                        if (project.isAndroid == true)
-                          const Icon(Icons.android, color: Colors.green),
-                        if (project.isIos == true)
-                          const Icon(Icons.apple, color: Colors.black),
-                      ],
-                    ),
-                    const SizedBox(height: 20),
-                    if (project.logo.isNotEmpty)
-                      Center(
-                        child: Image.network(
-                          project.logo,
-                          height: 100,
-                          width: 100,
-                        ),
-                      ),
                   ],
-                ),
+                )
               );
             },
             childCount: 1,
@@ -76,7 +58,7 @@ class _CustomSliverAppBar extends StatelessWidget {
         expandedHeight: size.height * 0.7,
         foregroundColor: Colors.white,
         title: Text(
-          project.nombre ,
+          project.nombre,
           style: Theme.of(context).textTheme.displaySmall,
           textAlign: TextAlign.start,
         ),
@@ -110,6 +92,7 @@ class _CustomSliverAppBar extends StatelessWidget {
             ],
           ),
         ));
+        
 
     // child: Column(
     //       crossAxisAlignment: CrossAxisAlignment.start,
