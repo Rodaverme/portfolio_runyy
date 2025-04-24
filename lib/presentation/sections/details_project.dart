@@ -1,18 +1,23 @@
+import 'package:card_swiper/card_swiper.dart';
 import 'package:flutter/material.dart';
-import 'package:portfolio_runny/presentation/widgets/project_details_slideshow.dart';
 import '../../domain/entities/projects.dart';
 
 class DetailsProject extends StatelessWidget {
   final Projects project;
 
-
   const DetailsProject({
     super.key,
-    required this.project, 
+    required this.project,
   });
 
   @override
   Widget build(BuildContext context) {
+    final List<String> tecnologias = [
+      "Flutter",
+      "Dart",
+      "Isar DB",
+    ];
+
     return Scaffold(
       body: CustomScrollView(
         physics: const ClampingScrollPhysics(),
@@ -22,22 +27,98 @@ class DetailsProject extends StatelessWidget {
               delegate: SliverChildBuilderDelegate(
             (context, index) {
               return Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      project.descripcion,
-                      style: Theme.of(context).textTheme.bodyLarge,
-                    ),
-                    const SizedBox(height: 20),
-                  ],
-                )
-              );
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  project.descripcion,
+                                  style: Theme.of(context).textTheme.bodyLarge,
+                                ),
+                                Text(project.caracteristicas[0]),
+                                const SizedBox(height: 20),
+                              ],
+                            ),
+                          ),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          CarruselImages(project: project),
+                        ],
+                      ),
+                      const SizedBox(height: 20),
+                      Column(
+                        children: [
+                          Text(
+                            "Tecnologias utilizadas",
+                            style: Theme.of(context).textTheme.displaySmall,
+                          ),
+                          const SizedBox(height: 10),
+                          Wrap(
+                            spacing: 20,
+                            runSpacing: 20,
+                            children: tecnologias
+                                .map((e) => Chip(
+                                      label: Text(e),
+                                      backgroundColor: Colors.black,
+                                      avatar: CircleAvatar(
+                                        backgroundImage: AssetImage(
+                                            'assets/Android-Logo.png'),
+                                      ),
+                                    ))
+                                .toList(),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ));
             },
             childCount: 1,
           ))
         ],
+      ),
+    );
+  }
+}
+
+class CarruselImages extends StatelessWidget {
+  const CarruselImages({
+    super.key,
+    required this.project,
+  });
+
+  final Projects project;
+
+  @override
+  Widget build(BuildContext context) {
+    return SizedBox(
+      height: 400,
+      width: 800,
+      child: Swiper(
+        autoplay: true,
+        itemBuilder: (context, index) {
+          return Image.network(
+            project.imagenesProject[index],
+            fit: BoxFit.fill,
+          );
+        },
+        itemCount: project.imagenesProject.length,
+        pagination: const SwiperPagination(
+          alignment: Alignment.bottomCenter,
+          builder: DotSwiperPaginationBuilder(
+            activeColor: Colors.white,
+            color: Colors.black,
+            size: 10,
+            activeSize: 15,
+          ),
+        ),
+        viewportFraction: 0.8,
+        scale: 0.9,
       ),
     );
   }
@@ -92,47 +173,5 @@ class _CustomSliverAppBar extends StatelessWidget {
             ],
           ),
         ));
-        
-
-    // child: Column(
-    //       crossAxisAlignment: CrossAxisAlignment.start,
-    //       children: [
-    //         Text(
-    //           project.nombre,
-    //           style: Theme.of(context).textTheme.headlineMedium,
-    //         ),
-    //         const SizedBox(height: 10),
-    //         Image.network(
-    //           project.imagen,
-    //           width: double.infinity,
-    //           height: 350,
-    //           fit: BoxFit.cover,
-    //         ),
-    //         const SizedBox(height: 10),
-    //         Text(
-    //           project.descripcion,
-    //           style: Theme.of(context).textTheme.bodyLarge,
-    //         ),
-    //         const SizedBox(height: 20),
-    //         Row(
-    //           children: [
-    //             if (project.isDektop == true) const Icon(Icons.desktop_windows),
-    //             if (project.isAndroid == true)
-    //               const Icon(Icons.android, color: Colors.green),
-    //             if (project.isIos == true)
-    //               const Icon(Icons.apple, color: Colors.black),
-    //           ],
-    //         ),
-    //         const SizedBox(height: 20),
-    //         if (project.logo.isNotEmpty)
-    //           Center(
-    //             child: Image.network(
-    //               project.logo,
-    //               height: 100,
-    //               width: 100,
-    //             ),
-    //           ),
-    //       ],
-    //     ),
   }
 }

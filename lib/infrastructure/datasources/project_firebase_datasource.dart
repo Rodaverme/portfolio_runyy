@@ -27,7 +27,8 @@ class ProjectFirebaseDatasource extends ProjectDatasource {
       final projectJson = entry.value as Map<String, dynamic>;
       final projectResponse = ProjectsResponse.fromJson(projectJson);
       return Projects(
-      
+        caracteristicas: projectResponse.caracteristicas,
+        imagenesProject: projectResponse.imagenesProject,
         slug: projectResponse.slug,
         descripcion: projectResponse.descripcion,
         imagen: projectResponse.imagen,

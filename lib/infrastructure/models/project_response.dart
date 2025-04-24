@@ -9,7 +9,8 @@ String projectsResponseToJson(Map<String, ProjectsResponse> data) =>
         Map.from(data).map((k, v) => MapEntry<String, dynamic>(k, v.toJson())));
 
 class ProjectsResponse {
- 
+  final List<String> imagenesProject;
+  final List<String> caracteristicas;
   final String slug;
   final String descripcion;
   final String imagen;
@@ -21,7 +22,8 @@ class ProjectsResponse {
   final String nombre;
 
   ProjectsResponse({
-   
+    required this.caracteristicas,
+    required this.imagenesProject,
     required this.slug,
     required this.descripcion,
     required this.imagen,
@@ -35,6 +37,10 @@ class ProjectsResponse {
 
   factory ProjectsResponse.fromJson(Map<String, dynamic> json) =>
       ProjectsResponse(
+        caracteristicas:
+            List<String>.from(json["caracteristicas"].map((x) => x)),
+        imagenesProject:
+            List<String>.from(json["imagenesProject"].map((x) => x)),
         slug: json["slug"],
         descripcion: json["Descripcion"],
         imagen: json["imagen"],
@@ -47,6 +53,8 @@ class ProjectsResponse {
       );
 
   Map<String, dynamic> toJson() => {
+        "caracteristicas": List<dynamic>.from(caracteristicas.map((x) => x)),
+        "imagenesProject": List<dynamic>.from(imagenesProject.map((x) => x)),
         "slug": slug,
         "Descripcion": descripcion,
         "imagen": imagen,
