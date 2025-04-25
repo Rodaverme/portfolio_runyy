@@ -2,6 +2,8 @@ import 'dart:ui';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:portfolio_runny/services/auth_services.dart';
+
 
 class LoginScreenAdmin extends StatefulWidget {
   const LoginScreenAdmin({super.key});
@@ -155,12 +157,27 @@ class _LoginScreenAdminState extends State<LoginScreenAdmin> {
                             style: ElevatedButton.styleFrom(
                               backgroundColor: Colors.deepPurpleAccent,
                             ),
-                            onPressed: () {
+                            onPressed: () async {
                               if (_formKey.currentState!.validate()) {
-                               context.pushReplacement('/admin/home');
-                                // Aquí puedes agregar la lógica de inicio de sesión
-                                // Por ejemplo, verificar el usuario y la contraseña
-                                // y redirigir a la pantalla principal del administrador.
+                              // Llamar al servicio de autenticación
+                              final authService = AuthServices();
+                              final isAuthenticated = await authService.login(
+                                _usernameController.text,
+                                _passwordController.text,
+                              );
+
+                              if (isAuthenticated != null) {
+                                // Redirigir a la pantalla principal del administrador
+                                context.pushReplacement('/admin/home');
+                              } else {
+                                // Mostrar un mensaje de error si la autenticación falla
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                SnackBar(
+                                  content: Text('Usuario o contraseña incorrectos',style: TextStyle(color: Colors.white),),
+                                  backgroundColor: Colors.red,
+                                ),
+                                );
+                              }
                               }
                             },
                             icon: Icon(
