@@ -5,7 +5,7 @@ import 'package:portfolio_runny/presentation/sections/project_details_page.dart'
 
 import '../../presentation/admin/home_screen_admin.dart';
 import '../../presentation/sections/home_Screen.dart';
-import '../../services/auth_services.dart';
+
 
 final appRouter = GoRouter(
   initialLocation: '/',
@@ -47,6 +47,7 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/admin/home',
       builder: (context, state) => HomeScreenAdmin(),
+      
       
     ),
   ],

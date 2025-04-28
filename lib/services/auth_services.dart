@@ -29,6 +29,7 @@ class AuthServices extends ChangeNotifier {
       body: jsonEncode(authData),
     );
 
+
     final Map<String, dynamic> responseData = jsonDecode(response.body);
     if (response.statusCode == 200) {
       _token = responseData['idToken'];
