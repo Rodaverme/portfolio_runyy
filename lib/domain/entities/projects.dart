@@ -1,7 +1,6 @@
 class Projects {
   
-  final String slug;
-
+  late final String slug;
   final List<String> caracteristicas;
   final List<String> imagenesProject;
   final String descripcion;

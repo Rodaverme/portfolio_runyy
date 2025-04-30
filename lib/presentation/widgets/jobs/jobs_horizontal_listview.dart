@@ -65,12 +65,16 @@ class _JobCard extends StatelessWidget {
             ),
             child: ClipRRect(
               borderRadius: BorderRadius.circular(10),
-              child: Image.network(
-                project.imagen,
+              child: FadeInImage(
+                placeholder: AssetImage('assets/loading.gif'),
+                image: NetworkImage(project.imagen),
                 fit: BoxFit.cover,
-                errorBuilder: (context, error, stackTrace) => const Center(
-                  child: Icon(Icons.broken_image, size: 50, color: Colors.red),
-                ),
+                imageErrorBuilder: (context, error, stackTrace) {
+                  return Image.asset(
+                    'assets/no-image.png',
+                    fit: BoxFit.cover,
+                  );
+                },
               ),
             ),
           ),
@@ -91,9 +95,16 @@ class _JobCard extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(10),
-                child: Image.network(
-                  project.logo,
+                child: FadeInImage(
+                  placeholder: AssetImage('assets/loading.gif'),
+                  image: NetworkImage(project.logo),
                   fit: BoxFit.fill,
+                  imageErrorBuilder: (context, error, stackTrace) {
+                    return Image.asset(
+                      'assets/no-image.png',
+                      fit: BoxFit.cover,
+                    );
+                  },
                 ),
               ),
             ),

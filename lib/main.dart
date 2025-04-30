@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       
       debugShowCheckedModeBanner: false,
       title: 'Portfolio Runny',
-      theme: AppTheme.darkTheme,
+      theme: AppTheme.lightTheme,
       routerConfig: appRouter,
     );
   }

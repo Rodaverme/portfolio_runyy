@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:http/http.dart' as http;
+import 'dart:developer';
 
 Future sendEmail({
   required String name,
@@ -31,7 +32,7 @@ Future sendEmail({
           },
         },
       ));
-
-  print(response.body);
+  log('Email response: ${response.body}');
+ 
   // Simulate sending an email
 }

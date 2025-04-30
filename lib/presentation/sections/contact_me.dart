@@ -107,7 +107,7 @@ class ContactMe extends StatelessWidget {
     final emailController = TextEditingController();
     final subjectController = TextEditingController();
     final messageController = TextEditingController();
-    final _formKey = GlobalKey<FormState>();
+    final formKey = GlobalKey<FormState>();
 
     return Card(
       elevation: 6,
@@ -115,7 +115,7 @@ class ContactMe extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(20.0),
         child: Form(
-          key: _formKey,
+          key: formKey,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
@@ -149,7 +149,7 @@ class ContactMe extends StatelessWidget {
                   if (value == null || value.isEmpty) {
                     return 'Por favor ingresa tu correo electrónico';
                   }
-                  if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+                  if (!RegExp('^[^@]+@[^@]+.[^@]+').hasMatch(value)) {
                     return 'Por favor ingresa un correo válido';
                   }
                   return null;
@@ -188,29 +188,31 @@ class ContactMe extends StatelessWidget {
               Align(
                 alignment: Alignment.center,
                 child: ElevatedButton.icon(
-                  onPressed: () {
-                    if (_formKey.currentState!.validate()) {
-                      final isEmailSent = sendEmail(
-                      name: nameController.text,
-                      email: emailController.text,
-                      subject: subjectController.text,
-                      message: messageController.text,
+                  onPressed: () async {
+                    if (formKey.currentState!.validate()) {
+                      final isEmailSent = await sendEmail(
+                        name: nameController.text,
+                        email: emailController.text,
+                        subject: subjectController.text,
+                        message: messageController.text,
                       );
 
                       if (isEmailSent == true) {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                        backgroundColor: Colors.green,
-                        content: Text('Mensaje enviado con éxito!'),
-                        ),
-                      );
+                        
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            backgroundColor: Colors.red,
+                            content: Text('Error al enviar el mensaje!'),
+                          ),
+                        );
                       } else {
-                      ScaffoldMessenger.of(context).showSnackBar(
-                        const SnackBar(
-                        backgroundColor: Colors.red,
-                        content: Text('Error al enviar el mensaje. Por favor, inténtalo de nuevo.'),
-                        ),
-                      );
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            backgroundColor: Colors.green,
+                            content: Text(
+                                'Mensaje enviado con éxito!'),
+                          ),
+                        );
                       }
                       // Acción al enviar
                     }
@@ -231,7 +233,6 @@ class ContactMe extends StatelessWidget {
       ),
     );
   }
-            
 
   Widget _buildFooter() {
     return Container(

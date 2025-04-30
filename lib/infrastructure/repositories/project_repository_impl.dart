@@ -16,4 +16,16 @@ class ProjectRepositoryImpl extends ProjectRepositories {
   Future<Projects?> getProjectBySlug(String slug) {
     return projectDatasource.getProjectBySlug(slug);
   }
+  
+  @override
+  Future<void> createProject(Projects project) {
+    return projectDatasource.createProject(project);
+  }
+  
+  @override
+  Future<void> updateProject(Projects project) {
+    return projectDatasource.updateProject(project);
+  }
+
+  
 }
