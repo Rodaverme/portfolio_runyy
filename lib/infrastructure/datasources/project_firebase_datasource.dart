@@ -51,7 +51,9 @@ class ProjectFirebaseDatasource extends ProjectDatasource {
     if (_cache.isEmpty) {
       await getProjects();
     }
-    return _cache.firstWhere((p) => p.slug == slug, );
+    return _cache.firstWhere(
+      (p) => p.slug == slug,
+    );
   }
 
   @override
@@ -70,32 +72,49 @@ class ProjectFirebaseDatasource extends ProjectDatasource {
       nombre: project.nombre,
     ).toJson();
 
-    await dio.post('/projects.json', data: projectJson);
+    await dio.put('/projects/${project.slug}.json', data: projectJson);
     _cache.add(project); // Actualizar el cache
   }
 
   @override
-  Future<void> updateProject(Projects updatedProject) async {
-    final projectIndex = _cache.indexWhere((p) => p.slug == updatedProject.slug);
+  Future<void> updateProject(Projects project) async {
+    final projectIndex =
+        _cache.indexWhere((p) => p.slug == project.slug);
     if (projectIndex == -1) {
-      throw Exception('Project with slug ${updatedProject.slug} not found');
+      throw Exception('Project with slug ${project.slug} not found');
     }
-
     final projectJson = ProjectsResponse(
-      caracteristicas: updatedProject.caracteristicas,
-      imagenesProject: updatedProject.imagenesProject,
-      slug: updatedProject.slug,
-      descripcion: updatedProject.descripcion,
-      imagen: updatedProject.imagen,
-      isAndroid: updatedProject.isAndroid,
-      isDesktop: updatedProject.isDektop,
-      isIos: updatedProject.isIos,
-      isWeb: updatedProject.isWeb,
-      logo: updatedProject.logo,
-      nombre: updatedProject.nombre,
+      caracteristicas: project.caracteristicas,
+      imagenesProject: project.imagenesProject,
+      slug: project.slug,
+      descripcion: project.descripcion,
+      imagen: project.imagen,
+      isAndroid: project.isAndroid,
+      isDesktop: project.isDektop,
+      isIos: project.isIos,
+      isWeb: project.isWeb,
+      logo: project.logo,
+      nombre: project.nombre,
     ).toJson();
 
-    await dio.put('/projects/${updatedProject.slug}.json', data: projectJson);
-    _cache[projectIndex] = updatedProject; // Actualizar el cache
+    await dio.put('/projects/${project.slug}.json', data: projectJson);
+
+    // Ensure the cache is updated correctly without duplicating
+    _cache[projectIndex] = project;
   }
+
+  @override
+  Future<void> deleteProject(String slug) async {
+    final projectIndex = _cache.indexWhere((p) => p.slug == slug);
+    if (projectIndex == -1) {
+      throw Exception('Project with slug $slug not found');
+    }
+
+    await dio.delete('/projects/$slug.json');
+    _cache.removeAt(projectIndex); // Actualizar el cache
+  }
+
+
 }
+
+  

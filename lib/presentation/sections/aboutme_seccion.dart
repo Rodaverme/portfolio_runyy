@@ -169,7 +169,7 @@ class AboutmeSeccion extends StatelessWidget {
                 speed: Duration(milliseconds: 50),
                 textStyle: TextStyle(
                   fontSize: 25,
-                  color: Colors.white,
+                 
                   fontFamily: 'Plus Jakarta Sans',
                   fontWeight: FontWeight.bold,
                   letterSpacing: 5),

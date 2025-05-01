@@ -123,7 +123,7 @@ class _JobCard extends StatelessWidget {
                 color: Colors.deepPurple,
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 4, vertical: 5),
+                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: Expanded(
                   child: Row(
                     children: [
@@ -143,7 +143,7 @@ class _JobCard extends StatelessWidget {
                           const SizedBox(height: 5),
                           Text(
                             project.descripcion.length > 50
-                                ? '${project.descripcion.substring(0, 35)}...'
+                                ? '${project.descripcion.substring(0, 30)}...'
                                 : project.descripcion,
                             style: Theme.of(context)
                                 .textTheme

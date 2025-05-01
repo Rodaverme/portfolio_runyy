@@ -144,23 +144,32 @@ class _AddAndUpdateFormState extends ConsumerState<AddAndUpdateForm> {
                       children: [
                         const Text('Logo'),
                         const SizedBox(height: 10),
-                        logoController.text.isNotEmpty
-                            ? FadeInImage(
-                                placeholder: AssetImage('assets/loading.gif'),
-                                image: NetworkImage(logoController.text),
-                                height: 200,
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                              )
-                            : const Image(
-                                image: AssetImage('assets/noimage.jpeg'),
-                                width: double.infinity,
-                                height: 200,
-                                fit: BoxFit.cover,
-                              ),
+                        ValueListenableBuilder<String>(
+                          valueListenable: ValueNotifier(logoController.text),
+                          builder: (context, logoUrl, _) {
+                            return logoUrl.isNotEmpty
+                                ? FadeInImage(
+                                    placeholder:
+                                        AssetImage('assets/loading.gif'),
+                                    image: NetworkImage(logoUrl),
+                                    height: 200,
+                                    width: double.infinity,
+                                    fit: BoxFit.cover,
+                                  )
+                                : const Image(
+                                    image: AssetImage('assets/noimage.jpeg'),
+                                    width: double.infinity,
+                                    height: 200,
+                                    fit: BoxFit.cover,
+                                  );
+                          },
+                        ),
                         Center(
                           child: TextButton(
-                            onPressed: () => pickAndUploadImage(logoController),
+                            onPressed: () async {
+                              await pickAndUploadImage(logoController);
+                              setState(() {}); // Trigger UI update
+                            },
                             child: const Text('Cambiar Logo'),
                           ),
                         ),
@@ -174,25 +183,33 @@ class _AddAndUpdateFormState extends ConsumerState<AddAndUpdateForm> {
                       children: [
                         const Text('Imagen Principal'),
                         const SizedBox(height: 10),
-                        imagenController.text.isNotEmpty
-                            ? FadeInImage(
-                                placeholder: AssetImage('assets/loading.gif'),
-                                image: NetworkImage(imagenController.text),
-                                height: 200,
-                                width: double.infinity,
-                                fit: BoxFit.cover,
-                              )
-                            : const Image(
-                                image: AssetImage('assets/noimage.jpeg'),
-                                width: double.infinity,
-                                height: 200,
-                                fit: BoxFit.cover,
-                              ),
-                        Center(
+                        ValueListenableBuilder<String>(
+                          valueListenable: ValueNotifier(imagenController.text),
+                          builder: (context, imagen, _) {
+                            return imagen.isNotEmpty
+                                ? FadeInImage(
+                                    placeholder:
+                                        AssetImage('assets/loading.gif'),
+                                    image: NetworkImage(imagen),
+                                    height: 200,
+                                    width: double.infinity,
+                                    fit: BoxFit.cover,
+                                  )
+                                : const Image(
+                                    image: AssetImage('assets/noimage.jpeg'),
+                                    width: double.infinity,
+                                    height: 200,
+                                    fit: BoxFit.cover,
+                                  );
+                          },
+                        ),
+                       Center(
                           child: TextButton(
-                            onPressed: () =>
-                                pickAndUploadImage(imagenController),
-                            child: const Text('Cambiar Imagen Principal'),
+                            onPressed: () async {
+                              await pickAndUploadImage(imagenController);
+                              setState(() {}); // Trigger UI update
+                            },
+                            child: const Text('Cambiar Logo'),
                           ),
                         ),
                       ],
@@ -291,7 +308,7 @@ class _AddAndUpdateFormState extends ConsumerState<AddAndUpdateForm> {
                     ref.read(createProjectProvider(updatedProject));
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        backgroundColor: Colors.green,
+                          backgroundColor: Colors.green,
                           content: Text('Proyecto creado con éxito')),
                     );
                   }

@@ -35,26 +35,64 @@ class AdminProjectsDone extends ConsumerWidget {
                     return ListTile(
                       leading: (project.logo.isNotEmpty
                               ? ImageLogo(project: project)
-                              : Icon(Icons
-                                  .image_not_supported) // Placeholder icon if logo is null or empty
+                              : Icon(Icons.image_not_supported)),
 
-                          ),
-
-                      title: Text(project
-                          .nombre), // Asume que `name` es un campo del proyecto
+                      title: Text(project.nombre),
                       subtitle: Text(project.descripcion),
 
-                      trailing: Icon(Icons.arrow_forward),
-
-                      onTap: () {
-                        Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
+                      trailing: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          IconButton(
+                          icon: Icon(Icons.edit),
+                          onPressed: () {
+                            Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
                                 AddAndUpdateForm(project: project),
+                            ),
+                            );
+                          },
                           ),
-                        );
-                      },
+                          IconButton(
+                          icon: Icon(Icons.delete, color: Colors.red),
+                          onPressed: () async {
+                            final confirm = await showDialog<bool>(
+                            context: context,
+                            builder: (context) => AlertDialog(
+                              title: Text('Confirmar eliminación'),
+                              content: Text(
+                                '¿Estás seguro de que deseas eliminar este proyecto?'),
+                              actions: [
+                              TextButton(
+                                onPressed: () =>
+                                  Navigator.pop(context, false),
+                                child: Text('Cancelar'),
+                              ),
+                              TextButton(
+                                onPressed: () =>
+                                  Navigator.pop(context, true),
+                                child: Text('Eliminar'),
+                              ),
+                              ],
+                            ),
+                            );
+
+                            if (confirm == true) {
+                            await projectsAsync.deleteProject(project.slug);
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                              content: Text('Proyecto eliminado'),
+                              ),
+                            );
+                            // ignore: unused_result
+                            ref.refresh(projectRepositoryProvider);
+                            }
+                          },
+                          ),
+                        ],
+                      ),
                     );
                   },
                 );
@@ -84,20 +122,17 @@ class ImageLogo extends StatelessWidget {
       child: SizedBox(
         width: 150, // Set a fixed width for the logo
         height: 150, // Set a fixed height for the logo
-        
         child: project.logo.isNotEmpty
             ? Image.network(
                 project.logo,
-                fit: BoxFit.cover, 
-                // Ensures the image covers the container
+                fit: BoxFit.cover,
               )
             : Icon(
                 Icons.image_not_supported,
                 size: 30,
-                color: Colors.grey, // Placeholder icon styling
+                color: Colors.grey,
               ),
       ),
     );
   }
 }
-

@@ -2,6 +2,8 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio_runny/services/send_email.dart';
 
+import '../widgets/backaground_page.dart';
+
 class ContactMe extends StatelessWidget {
   const ContactMe({super.key});
 
@@ -16,47 +18,63 @@ class ContactMe extends StatelessWidget {
           constraints: BoxConstraints(
             minHeight: constraints.maxHeight,
           ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const SizedBox(height: 30),
-              AnimatedTextKit(
-                animatedTexts: [
-                  TyperAnimatedText(
-                    'Contáctame',
-                    speed: const Duration(milliseconds: 50),
-                    textStyle: theme.textTheme.displayLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                ],
-              ),
-              const SizedBox(height: 40),
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                child: isMobile
-                    ? Column(
-                        children: [
-                          _buildContactInfoCard(),
-                          const SizedBox(height: 20),
-                          _buildFormCard(context),
-                        ],
-                      )
-                    : IntrinsicHeight(
-                        child: Row(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Expanded(child: _buildContactInfoCard()),
-                            const SizedBox(width: 20),
-                            Expanded(child: _buildFormCard(context)),
-                          ],
-                        ),
+          child: Stack(children: [
+            CustomPaint(
+              size: Size(constraints.maxWidth, constraints.maxHeight),
+              painter: BackgroundPainter(),
+            ),
+            // Positioned(
+            //   top: 0,
+            //   left: 0,
+            //   right: 0,
+            //   child: Container(
+            //     height: 200,
+            //     color: Colors.deepPurple.withOpacity(0.5),
+            //   ),
+            // ),
+
+            Column(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                const SizedBox(height: 30),
+                AnimatedTextKit(
+                  animatedTexts: [
+                    TyperAnimatedText(
+                      'Contáctame',
+                      speed: const Duration(milliseconds: 50),
+                      textStyle: theme.textTheme.displayLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
                       ),
-              ),
-              const SizedBox(height: 40),
-              _buildFooter(),
-            ],
-          ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 40),
+                Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                  child: isMobile
+                      ? Column(
+                          children: [
+                            _buildContactInfoCard(),
+                            const SizedBox(height: 20),
+                            _buildFormCard(context),
+                          ],
+                        )
+                      : IntrinsicHeight(
+                          child: Row(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Expanded(child: _buildContactInfoCard()),
+                              const SizedBox(width: 20),
+                              Expanded(child: _buildFormCard(context)),
+                            ],
+                          ),
+                        ),
+                ),
+                const SizedBox(height: 40),
+                _buildFooter(),
+              ],
+            ),
+          ]),
         ),
       );
     });
@@ -198,7 +216,6 @@ class ContactMe extends StatelessWidget {
                       );
 
                       if (isEmailSent == true) {
-                        
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             backgroundColor: Colors.red,
@@ -209,8 +226,7 @@ class ContactMe extends StatelessWidget {
                         ScaffoldMessenger.of(context).showSnackBar(
                           const SnackBar(
                             backgroundColor: Colors.green,
-                            content: Text(
-                                'Mensaje enviado con éxito!'),
+                            content: Text('Mensaje enviado con éxito!'),
                           ),
                         );
                       }
