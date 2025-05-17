@@ -1,34 +1,31 @@
-import 'dart:convert';
 import 'dart:typed_data';
-import 'package:http/http.dart' as http;
+import 'package:dio/dio.dart';
 
 class CloudinaryFotosServices {
   final String cloudName = 'dmsshdovm';
   final String uploadPreset = 'ynwwcafa';
+
+  final Dio _dio = Dio();
 
   Future<String?> uploadImage({
     required Uint8List imageBytes,
     required String fileName,
   }) async {
     try {
-      final url = Uri.parse('https://api.cloudinary.com/v1_1/$cloudName/image/upload');
+      final url = 'https://api.cloudinary.com/v1_1/$cloudName/image/upload';
 
-      final request = http.MultipartRequest('POST', url)
-        ..fields['upload_preset'] = uploadPreset
-        ..files.add(
-          http.MultipartFile.fromBytes(
-            'file',
-            imageBytes,
-            filename: fileName,
-          ),
-        );
+      final formData = FormData.fromMap({
+        'upload_preset': uploadPreset,
+        'file': MultipartFile.fromBytes(
+          imageBytes,
+          filename: fileName,
+        ),
+      });
 
-      final response = await request.send();
+      final response = await _dio.post(url, data: formData);
 
       if (response.statusCode == 200) {
-        final resStream = await response.stream.bytesToString();
-        final resData = json.decode(resStream);
-        return resData['secure_url'];
+        return response.data['secure_url'];
       } else {
         print('Error al subir imagen: ${response.statusCode}');
         return null;

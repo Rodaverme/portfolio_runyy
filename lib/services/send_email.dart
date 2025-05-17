@@ -33,6 +33,4 @@ Future sendEmail({
         },
       ));
   log('Email response: ${response.body}');
- 
-  // Simulate sending an email
 }

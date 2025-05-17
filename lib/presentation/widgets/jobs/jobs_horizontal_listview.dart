@@ -1,6 +1,6 @@
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
-import 'package:go_router/go_router.dart';
+
 import 'package:portfolio_runny/domain/entities/projects.dart';
 
 class JobsHorizontalListview extends StatelessWidget {
@@ -15,7 +15,6 @@ class JobsHorizontalListview extends StatelessWidget {
     return SizedBox(
       height: 350,
       child: MouseRegion(
-        cursor: SystemMouseCursors.click,
         child: GestureDetector(
           onHorizontalDragUpdate: (details) {
             scrollController.jumpTo(scrollController.offset - details.delta.dx);
@@ -26,12 +25,7 @@ class JobsHorizontalListview extends StatelessWidget {
             itemCount: projects.length,
             itemBuilder: (context, index) {
               final project = projects[index];
-              return GestureDetector(
-                onTap: () {
-                  context.pushReplacement('/details/${project.slug}');
-                },
-                child: _JobCard(project: project),
-              );
+              return _JobCard(project: project);
             },
           ),
         ),
@@ -123,7 +117,8 @@ class _JobCard extends StatelessWidget {
                 color: Colors.deepPurple,
               ),
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
                 child: Expanded(
                   child: Row(
                     children: [

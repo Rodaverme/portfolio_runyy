@@ -1,13 +1,9 @@
+// ignore: file_names
+// ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:portfolio_runny/presentation/providers/projects/theme_provider.dart';
-import 'package:portfolio_runny/presentation/sections/aboutme_seccion.dart';
-import 'package:portfolio_runny/presentation/sections/contact_me.dart';
-import 'package:portfolio_runny/presentation/sections/intro_seccion.dart';
-import 'package:portfolio_runny/presentation/sections/service_seccion.dart';
-import 'package:portfolio_runny/presentation/sections/works_done.dart';
-import 'package:portfolio_runny/presentation/widgets/menu_header.dart';
 
+import 'package:portfolio_runny/presentation/sections/sections.dart';
 class HomeScreen extends ConsumerStatefulWidget {
   final String currentPath;
   const HomeScreen({super.key, required this.currentPath});
@@ -68,11 +64,12 @@ class _HomescreenState extends ConsumerState<HomeScreen> {
                                       isDarkTheme = value;
                                     });
                                     // Update the app theme
-                                  final themeMode = isDarkTheme
+                                    final themeMode = isDarkTheme
                                         ? ThemeMode.dark
                                         : ThemeMode.light;
-                                        ref.read(themeModeProvider.notifier).state = themeMode;
-                                    
+                                    ref.read(themeModeProvider.notifier).state =
+                                        themeMode;
+
                                     // MyApp.of(context).setThemeMode(t5hemeMode);
                                   },
                                 ),

@@ -45,7 +45,7 @@ class _PiechartSkillsState extends State<PiechartSkills> {
       {'title': 'Java', 'value': 3, 'color': Colors.green},
       {'title': 'Python', 'value': 2, 'color': Colors.red},
       {'title': 'UI/UX', 'value': 3, 'color': Colors.purple},
-      {'title': 'Firebase', 'value': 2, 'color': Colors.brown},
+      {'title': 'Firebase', 'value': 3, 'color': Colors.brown},
       {'title': 'SQL', 'value': 2, 'color': Colors.cyan},
       {'title': 'NoSQL', 'value': 2, 'color': Colors.pink},
     ];

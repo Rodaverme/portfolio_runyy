@@ -1,11 +1,10 @@
 import 'package:go_router/go_router.dart';
 import 'package:portfolio_runny/presentation/admin/login_screen_admin.dart';
 
-import 'package:portfolio_runny/presentation/sections/project_details_page.dart';
+
 
 import '../../presentation/admin/home_screen_admin.dart';
-import '../../presentation/sections/home_Screen.dart';
-
+import '../../presentation/sections/home_screen.dart';
 
 final appRouter = GoRouter(
   initialLocation: '/',
@@ -26,16 +25,16 @@ final appRouter = GoRouter(
       path: '/works',
       builder: (context, state) => HomeScreen(currentPath: '/works'),
     ),
-    GoRoute(
-      path: '/details/:slug',
-      name: 'project-details',
-      builder: (context, state) {
-        final slug = state.pathParameters['slug']!;
-        return ProjectDetailsPage(
-          slug: slug,
-        );
-      },
-    ),
+    // GoRoute(
+    //   path: '/details/:slug',
+    //   name: 'project-details',
+    //   builder: (context, state) {
+    //     final slug = state.pathParameters['slug']!;
+    //     return ProjectDetailsPage(
+    //       slug: slug,
+    //     );
+    //   },
+    // ),
     GoRoute(
       path: '/contact',
       builder: (context, state) => HomeScreen(currentPath: '/contact'),
@@ -47,9 +46,6 @@ final appRouter = GoRouter(
     GoRoute(
       path: '/admin/home',
       builder: (context, state) => HomeScreenAdmin(),
-      
-      
     ),
   ],
-  
 );
