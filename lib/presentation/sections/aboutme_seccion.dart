@@ -1,17 +1,12 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio_runny/presentation/widgets/backaground_page.dart';
-import 'package:portfolio_runny/presentation/widgets/piechart_skills.dart';
 
 class AboutmeSeccion extends StatelessWidget {
   const AboutmeSeccion({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final screenWidth = MediaQuery.of(context).size.width;
-    final isMobile = screenWidth < 800;
-    final isTablet = screenWidth >= 800 && screenWidth < 1200;
-
     return Stack(
       children: [
         Positioned.fill(
@@ -21,168 +16,152 @@ class AboutmeSeccion extends StatelessWidget {
         ),
         SingleChildScrollView(
           child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: isMobile
-                ? _buildMobileLayout(context)
-                : isTablet
-                    ? _buildTabletLayout(context)
-                    : _buildDesktopLayout(context),
-          ),
+              padding: const EdgeInsets.all(8.0),
+              child: _buildContentSection(context)),
         ),
       ],
-    );
-  }
-
-  Widget _buildDesktopLayout(BuildContext context) {
-    return Row(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        Flexible(
-          flex: 2,
-          child: _buildImageContainer(500),
-        ),
-        const SizedBox(width: 20),
-        Flexible(
-          flex: 3,
-          child: _buildContentSection(context),
-        ),
-      ],
-    );
-  }
-
-  Widget _buildTabletLayout(BuildContext context) {
-    return Column(
-      children: [
-        _buildImageContainer(400),
-        const SizedBox(height: 20),
-        _buildContentSection(context),
-      ],
-    );
-  }
-
-  Widget _buildMobileLayout(BuildContext context) {
-    return Column(
-      children: [
-        _buildImageContainer(300),
-        const SizedBox(height: 20),
-        _buildContentSection(context),
-      ],
-    );
-  }
-
-  Widget _buildImageContainer(double width) {
-    return Container(
-      width: width,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(20),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.3),
-            blurRadius: 15,
-            offset: const Offset(0, 8),
-          ),
-        ],
-        border: Border.all(color: Colors.deepPurple, width: 2),
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(20),
-        child: Stack(
-          children: [
-            Image.asset(
-              'assets/yo.jpg',
-              width: width,
-              fit: BoxFit.cover,
-            ),
-            Container(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  colors: [
-                    Colors.transparent,
-                    Colors.black.withOpacity(0.4)
-                  ],
-                  begin: Alignment.topCenter,
-                  end: Alignment.bottomCenter,
-                ),
-              ),
-            ),
-            Positioned(
-              bottom: 10,
-              left: 10,
-              child: Text(
-                '¡Hola, soy yo!',
-                style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
-                  shadows: [
-                    Shadow(
-                      color: Colors.black87,
-                      blurRadius: 10,
-                      offset: Offset(1, 2),
-                    ),
-                  ],
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
     );
   }
 
   Widget _buildContentSection(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(8.0),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+    final sizeH = MediaQuery.of(context).size.height;
+    return Container(
+      height: sizeH * 1,
+      child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const SizedBox(height: 20),
-          AnimatedTextKit(
-            animatedTexts: [
-              TyperAnimatedText(
-                '¿QUIEN SOY?',
-                speed: Duration(milliseconds: 50),
-                textStyle: TextStyle(
-                  fontSize: 25,
-                  fontFamily: 'Plus Jakarta Sans',
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 5),
-              ),
-            ],
+//PERSONAL INFORMATION
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                // TITULO DEV MOBILE
+                Text(
+                  'Yo soy Ronald Vera',
+                  style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                ),
+                GradientText('Mobile Developer',
+                    style: TextStyle(fontSize: 70),
+                    gradient: LinearGradient(colors: [
+                      Colors.deepPurpleAccent,
+                      Colors.pinkAccent,
+                      Colors.cyan
+                    ])),
+                //Descripcion del texto
+                Text(
+                  'Desarrollador móvil multiplataforma apasionado por crear experiencias digitales impactantes.\n'
+                  'Con experiencia en Flutter, desarrollo aplicaciones elegantes, rápidas y funcionales para Android, iOS, Web y Escritorio.\n'
+                  'Me especializo en interfaces modernas, limpias y centradas en el usuario,\n siempre siguiendo buenas prácticas de arquitectura y rendimiento.\n'
+                  '\n',
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16),
+                ),
+                Row(
+                  children: [
+                    SizedBox(
+                      width: 200, // Ancho personalizado
+                      height: 50, // Alto personalizado
+                      child: FilledButton(
+                        onPressed: () {
+                          // Acción al presionar
+                        },
+                        child: Text(
+                          'Download CV',
+                          style: TextStyle(fontSize: 18), // Texto más grande
+                        ),
+                      ),
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.facebook_outlined,
+                        size: 50,
+                      ),
+                      onPressed: () {},
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.mail,
+                        size: 50,
+                      ),
+                      onPressed: () {},
+                    ),
+                    IconButton(
+                      icon: Icon(
+                        Icons.phone_android_rounded,
+                        size: 50,
+                      ),
+                      onPressed: () {},
+                    )
+                  ],
+
+                )
+                //TECNOLOGIAS
+                
+              ],
+            ),
           ),
-          const SizedBox(height: 30),
-          Text(
-            'Mi nombre es Ronald Vera y soy un desarrollador Full Stack especializado en la creación de aplicaciones multiplataforma (iOS, Android, Web y Escritorio) utilizando Flutter y Dart. Además, tengo experiencia en desarrollo con Java y Python. Me enfoco en construir aplicaciones escalables, reutilizables y fáciles de mantener, siguiendo una arquitectura de programación limpia. Esto permite que las soluciones sean flexibles y adaptables a nuevas funcionalidades con facilidad. Mi objetivo es desarrollar software eficiente y bien estructurado, ofreciendo una experiencia de usuario óptima y asegurando la calidad del código en cada proyecto',
-            style: TextStyle(
-              fontSize: 20,
-              fontFamily: 'Plus Jakarta Sans',
-              fontWeight: FontWeight.w300,
-              letterSpacing: 2),
-            textAlign: TextAlign.justify,
-          ),
-          const SizedBox(height: 20),
-          AnimatedTextKit(
-            animatedTexts: [
-              TyperAnimatedText(
-                'HABILIDADES',
-                speed: Duration(milliseconds: 50),
-                textStyle: TextStyle(
-                  fontSize: 25,
-                 
-                  fontFamily: 'Plus Jakarta Sans',
-                  fontWeight: FontWeight.bold,
-                  letterSpacing: 5),
-              ),
-            ],
-          ),
-          const SizedBox(height: 20),
+
           SizedBox(
-            height: 300,
-            child: PiechartSkills(),
+            width: 50,
           ),
+//PHOTO
+          Transform.rotate(
+            angle:
+                -0.1, // Rota el contenedor unos grados (en radianes, negativo hacia la izquierda)
+            child: Container(
+              width: 450, // Ajusta según lo necesites
+              height: 450,
+              decoration: BoxDecoration(
+                color: Colors.white, // Color del fondo del recuadro
+                borderRadius:
+                    BorderRadius.circular(16), // Opcional: esquinas redondeadas
+                boxShadow: [
+                  BoxShadow(
+                    color: Colors.black26,
+                    blurRadius: 6,
+                    offset: Offset(2, 4),
+                  ),
+                ],
+              ),
+              child: ClipRRect(
+                borderRadius: BorderRadius.circular(16),
+                child: Image.asset(
+                  'assets/yo1.jpg',
+                  fit: BoxFit.cover,
+                ),
+              ),
+            ),
+          )
         ],
       ),
     );
+  }
+}
+
+class GradientText extends StatelessWidget {
+  const GradientText(
+    this.text, {
+    required this.gradient,
+    this.style,
+  });
+
+  final String text;
+  final TextStyle? style;
+  final Gradient gradient;
+
+  @override
+  Widget build(BuildContext context) {
+    return ShaderMask(
+        blendMode: BlendMode.srcIn,
+        shaderCallback: (bounds) => gradient.createShader(
+              Rect.fromLTWH(0, 0, bounds.width, bounds.height),
+            ),
+        child: AnimatedTextKit(
+          totalRepeatCount: 1,
+          animatedTexts: [TyperAnimatedText(text, textStyle: style)],
+        ));
   }
 }
