@@ -13,7 +13,6 @@ class JobsHorizontalListview extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 350,
       child: MouseRegion(
         child: GestureDetector(
           onHorizontalDragUpdate: (details) {
@@ -43,133 +42,130 @@ class _JobCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FadeInLeftBig(
-      child: Stack(
-        children: [
-          Container(
-            width: 400,
-            height: 400,
-            margin: const EdgeInsets.all(10),
-            decoration: BoxDecoration(
-              color: Colors.grey[200],
-              borderRadius: BorderRadius.circular(10),
-              boxShadow: [
-                BoxShadow(
-                    color: Colors.black12, blurRadius: 5, offset: Offset(0, 3)),
+      child: Container(
+        width: 400,
+        margin: const EdgeInsets.all(10),
+        decoration: BoxDecoration(
+          color: Colors.grey[200],
+          borderRadius: BorderRadius.circular(10),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.black26,
+              blurRadius: 5,
+              offset: Offset(0, 3),
+            ),
+          ],
+        ),
+        child: Column(
+          children: [
+            // Imagen con logo encima
+            Stack(
+              children: [
+                ClipRRect(
+                  borderRadius:
+                      const BorderRadius.vertical(top: Radius.circular(10)),
+                  child: SizedBox(
+                    height: 537,
+                    width: double.infinity,
+                    child: FadeInImage(
+                      placeholder: const AssetImage('assets/loading.gif'),
+                      image: NetworkImage(project.imagen),
+                      fit: BoxFit.cover,
+                      imageErrorBuilder: (_, __, ___) => Image.asset(
+                        'assets/no-image.png',
+                        fit: BoxFit.cover,
+                      ),
+                    ),
+                  ),
+                ),
+                // Logo en la esquina superior derecha
+                Positioned(
+                  top: 8,
+                  right: 8,
+                  child: Container(
+                    width: 60,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(12),
+                      boxShadow: const [
+                        BoxShadow(
+                          color: Colors.black26,
+                          blurRadius: 4,
+                          offset: Offset(2, 2),
+                        ),
+                      ],
+                    ),
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(12),
+                      child: FadeInImage(
+                        placeholder: const AssetImage('assets/loading.gif'),
+                        image: NetworkImage(project.logo),
+                        fit: BoxFit.contain,
+                        imageErrorBuilder: (_, __, ___) =>
+                            Image.asset('assets/no-image.png'),
+                      ),
+                    ),
+                  ),
+                ),
               ],
             ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(10),
-              child: FadeInImage(
-                placeholder: AssetImage('assets/loading.gif'),
-                image: NetworkImage(project.imagen),
-                fit: BoxFit.cover,
-                imageErrorBuilder: (context, error, stackTrace) {
-                  return Image.asset(
-                    'assets/no-image.png',
-                    fit: BoxFit.cover,
-                  );
-                },
-              ),
-            ),
-          ),
-          Positioned(
-            top: 0,
-            right: 10,
-            left: 250,
-            child: Container(
-              width: 150,
-              height: 120,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(10),
-                gradient: LinearGradient(
-                  colors: [Colors.black.withOpacity(0.5), Colors.transparent],
-                  begin: Alignment.bottomCenter,
-                  end: Alignment.topCenter,
-                ),
-              ),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(10),
-                child: FadeInImage(
-                  placeholder: AssetImage('assets/loading.gif'),
-                  image: NetworkImage(project.logo),
-                  fit: BoxFit.fill,
-                  imageErrorBuilder: (context, error, stackTrace) {
-                    return Image.asset(
-                      'assets/no-image.png',
-                      fit: BoxFit.cover,
-                    );
-                  },
-                ),
-              ),
-            ),
-          ),
-          Positioned(
-            bottom: 0,
-            left: 10,
-            right: 60,
-            child: Container(
-              width: 200,
-              height: 70,
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.only(
-                    bottomLeft: Radius.circular(10),
-                    topRight: Radius.circular(10)),
+
+            // Texto y plataformas
+            Container(
+              padding: const EdgeInsets.all(12),
+              decoration: const BoxDecoration(
                 color: Colors.deepPurple,
+                borderRadius:
+                    BorderRadius.vertical(bottom: Radius.circular(10)),
               ),
-              child: Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                child: Expanded(
-                  child: Row(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  // Textos
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            project.nombre,
-                            style: Theme.of(context)
-                                .textTheme
-                                .titleLarge
-                                ?.copyWith(
-                                  color: Colors.white,
-                                  fontWeight: FontWeight.bold,
-                                ),
-                          ),
-                          const SizedBox(height: 5),
-                          Text(
-                            project.descripcion.length > 50
-                                ? '${project.descripcion.substring(0, 30)}...'
-                                : project.descripcion,
-                            style: Theme.of(context)
-                                .textTheme
-                                .bodyMedium
-                                ?.copyWith(
-                                  color: Colors.white70,
-                                ),
-                          )
-                        ],
-                      ),
-                      const SizedBox(width: 5),
-                      Wrap(
-                        spacing: 5, // Espacio horizontal entre iconos
-                        children: [
-                          if (project.isDektop == true)
-                            const Icon(
-                              Icons.desktop_windows_sharp,
+                      Text(
+                        project.nombre,
+                        style: Theme.of(context).textTheme.titleLarge?.copyWith(
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
                             ),
-                          if (project.isAndroid == true)
-                            const Icon(Icons.android, color: Colors.green),
-                          if (project.isIos == true)
-                            const Icon(Icons.apple, color: Colors.black),
-                        ],
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        project.descripcion.length > 50
+                            ? '${project.descripcion.substring(0, 50)}...'
+                            : project.descripcion,
+                        style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                              color: Colors.white70,
+                            ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ],
                   ),
-                ),
+                  const SizedBox(width: 8),
+                  // Iconos de plataforma
+                  Wrap(
+                    spacing: 4,
+                    children: [
+                      if (project.isDektop == true)
+                        const Icon(Icons.desktop_windows_sharp,
+                            color: Colors.white),
+                      if (project.isAndroid == true)
+                        const Icon(Icons.android, color: Colors.greenAccent),
+                      if (project.isIos == true)
+                        const Icon(Icons.apple, color: Colors.white),
+                    ],
+                  ),
+                ],
               ),
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }

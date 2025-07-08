@@ -7,118 +7,91 @@ class AboutmeSeccion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Positioned.fill(
-          child: CustomPaint(
-            painter: BackgroundPainter(),
+    final height = MediaQuery.of(context).size.height;
+
+    return Container(
+      height: height, // ✅ altura consistente
+      width: double.infinity,
+      child: Stack(
+        children: [
+          Positioned.fill(
+            child: CustomPaint(painter: BackgroundPainter()),
           ),
-        ),
-        SingleChildScrollView(
-          child: Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: _buildContentSection(context)),
-        ),
-      ],
+          _buildContentSection(context),
+        ],
+      ),
     );
   }
 
   Widget _buildContentSection(BuildContext context) {
-    final sizeH = MediaQuery.of(context).size.height;
-    return Container(
-      height: sizeH * 1,
+    return Center(
       child: Row(
-        crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-//PERSONAL INFORMATION
+          // Información personal
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 30),
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                // TITULO DEV MOBILE
-                Text(
+                const Text(
                   'Yo soy Ronald Vera',
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                 ),
-                GradientText('Mobile Developer',
-                    style: TextStyle(fontSize: 70),
-                    gradient: LinearGradient(colors: [
-                      Colors.deepPurpleAccent,
-                      Colors.pinkAccent,
-                      Colors.cyan
-                    ])),
-                //Descripcion del texto
-                Text(
+                GradientText(
+                  'Mobile Developer',
+                  style: const TextStyle(fontSize: 70),
+                  gradient: const LinearGradient(colors: [
+                    Colors.deepPurpleAccent,
+                    Colors.pinkAccent,
+                    Colors.cyan,
+                  ]),
+                ),
+                const Text(
                   'Desarrollador móvil multiplataforma apasionado por crear experiencias digitales impactantes.\n'
                   'Con experiencia en Flutter, desarrollo aplicaciones elegantes, rápidas y funcionales para Android, iOS, Web y Escritorio.\n'
-                  'Me especializo en interfaces modernas, limpias y centradas en el usuario,\n siempre siguiendo buenas prácticas de arquitectura y rendimiento.\n'
-                  '\n',
+                  'Me especializo en interfaces modernas, limpias y centradas en el usuario,\n siempre siguiendo buenas prácticas de arquitectura y rendimiento.\n',
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 16),
                 ),
                 Row(
                   children: [
                     SizedBox(
-                      width: 200, // Ancho personalizado
-                      height: 50, // Alto personalizado
+                      width: 200,
+                      height: 50,
                       child: FilledButton(
-                        onPressed: () {
-                          // Acción al presionar
-                        },
-                        child: Text(
-                          'Download CV',
-                          style: TextStyle(fontSize: 18), // Texto más grande
-                        ),
+                        onPressed: () {},
+                        child: const Text('Download CV', style: TextStyle(fontSize: 18)),
                       ),
                     ),
                     IconButton(
-                      icon: Icon(
-                        Icons.facebook_outlined,
-                        size: 50,
-                      ),
+                      icon: const Icon(Icons.facebook_outlined, size: 50),
                       onPressed: () {},
                     ),
                     IconButton(
-                      icon: Icon(
-                        Icons.mail,
-                        size: 50,
-                      ),
+                      icon: const Icon(Icons.mail, size: 50),
                       onPressed: () {},
                     ),
                     IconButton(
-                      icon: Icon(
-                        Icons.phone_android_rounded,
-                        size: 50,
-                      ),
+                      icon: const Icon(Icons.phone_android_rounded, size: 50),
                       onPressed: () {},
-                    )
+                    ),
                   ],
-
-                )
-                //TECNOLOGIAS
-                
+                ),
               ],
             ),
           ),
-
-          SizedBox(
-            width: 50,
-          ),
-//PHOTO
+          const SizedBox(width: 50),
           Transform.rotate(
-            angle:
-                -0.1, // Rota el contenedor unos grados (en radianes, negativo hacia la izquierda)
+            angle: -0.1,
             child: Container(
-              width: 450, // Ajusta según lo necesites
+              width: 450,
               height: 450,
               decoration: BoxDecoration(
-                color: Colors.white, // Color del fondo del recuadro
-                borderRadius:
-                    BorderRadius.circular(16), // Opcional: esquinas redondeadas
-                boxShadow: [
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                boxShadow: const [
                   BoxShadow(
                     color: Colors.black26,
                     blurRadius: 6,
@@ -128,10 +101,7 @@ class AboutmeSeccion extends StatelessWidget {
               ),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(16),
-                child: Image.asset(
-                  'assets/yo1.jpg',
-                  fit: BoxFit.cover,
-                ),
+                child: Image.asset('assets/yo1.jpg', fit: BoxFit.cover),
               ),
             ),
           )
@@ -140,6 +110,7 @@ class AboutmeSeccion extends StatelessWidget {
     );
   }
 }
+
 
 class GradientText extends StatelessWidget {
   const GradientText(
@@ -160,7 +131,7 @@ class GradientText extends StatelessWidget {
               Rect.fromLTWH(0, 0, bounds.width, bounds.height),
             ),
         child: AnimatedTextKit(
-          totalRepeatCount: 1,
+          totalRepeatCount: 2,
           animatedTexts: [TyperAnimatedText(text, textStyle: style)],
         ));
   }

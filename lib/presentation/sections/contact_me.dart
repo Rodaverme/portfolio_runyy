@@ -11,32 +11,18 @@ class ContactMe extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isMobile = MediaQuery.of(context).size.width < 600;
+    final height = MediaQuery.of(context).size.height;
 
-    return LayoutBuilder(builder: (context, constraints) {
-      return SingleChildScrollView(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-            minHeight: constraints.maxHeight,
-          ),
-          child: Stack(children: [
-            CustomPaint(
-              size: Size(constraints.maxWidth, constraints.maxHeight),
-              painter: BackgroundPainter(),
-            ),
-            // Positioned(
-            //   top: 0,
-            //   left: 0,
-            //   right: 0,
-            //   child: Container(
-            //     height: 200,
-            //     color: Colors.deepPurple.withOpacity(0.5),
-            //   ),
-            // ),
-
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Container(
+      height: height,
+      width: double.infinity,
+      child: Stack(
+        children: [
+          Positioned.fill(child: CustomPaint(painter: BackgroundPainter())),
+          Center(
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
               children: [
-                const SizedBox(height: 30),
                 AnimatedTextKit(
                   animatedTexts: [
                     TyperAnimatedText(
@@ -70,14 +56,12 @@ class ContactMe extends StatelessWidget {
                           ),
                         ),
                 ),
-                const SizedBox(height: 40),
-                _buildFooter(),
               ],
             ),
-          ]),
-        ),
-      );
-    });
+          ),
+        ],
+      ),
+    );
   }
 
   Widget _buildContactInfoCard() {
@@ -245,20 +229,6 @@ class ContactMe extends StatelessWidget {
               ),
             ],
           ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildFooter() {
-    return Container(
-      width: double.infinity,
-      color: Colors.deepPurple,
-      padding: const EdgeInsets.symmetric(vertical: 20),
-      child: const Center(
-        child: Text(
-          '© 2025 Ronald Vera | Todos los derechos reservados',
-          style: TextStyle(color: Colors.white70),
         ),
       ),
     );

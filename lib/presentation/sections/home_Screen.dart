@@ -2,8 +2,11 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 
 import 'package:portfolio_runny/presentation/sections/sections.dart';
+import 'package:portfolio_runny/presentation/widgets/fotter_widget.dart';
+
 class HomeScreen extends ConsumerStatefulWidget {
   final String currentPath;
   const HomeScreen({super.key, required this.currentPath});
@@ -13,29 +16,54 @@ class HomeScreen extends ConsumerStatefulWidget {
 }
 
 class _HomescreenState extends ConsumerState<HomeScreen> {
-  final PageController _pageController = PageController();
-  final Map<String, int> sectionIndex = {
-    '/': 0,
-    '/aboutme': 1,
-    '/services': 2,
-    '/works': 3,
-    '/contact': 4,
-  };
+  final ScrollController _scrollController = ScrollController();
+
+  final introKey = GlobalKey();
+  final aboutKey = GlobalKey();
+  final servicesKey = GlobalKey();
+  final worksKey = GlobalKey();
+  final contactKey = GlobalKey();
+
+  late final Map<String, GlobalKey> sectionKeys;
 
   @override
   void initState() {
     super.initState();
+    sectionKeys = {
+      '/': introKey,
+      '/aboutme': aboutKey,
+      '/services': servicesKey,
+      '/works': worksKey,
+      '/contact': contactKey,
+    };
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
-      final index = sectionIndex[widget.currentPath] ?? 0;
-      _pageController.jumpToPage(index); // o animateToPage para efecto suave
+      _scrollToSection(widget.currentPath);
     });
+  }
+
+  void _scrollToSection(String path) {
+    final key = sectionKeys[path];
+    if (key != null && key.currentContext != null) {
+      Scrollable.ensureVisible(
+        key.currentContext!,
+        duration: const Duration(milliseconds: 800),
+        curve: Curves.easeInOut,
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: MenuHeader(),
+        title: MenuHeader(
+          onSectionSelected: (path) {
+            _scrollToSection(path);
+            context.go(
+                path); // actualiza la URL para mantener navegación con GoRouter
+          },
+        ),
         actions: [
           IconButton(
             icon: const Icon(Icons.settings),
@@ -63,14 +91,10 @@ class _HomescreenState extends ConsumerState<HomeScreen> {
                                     setState(() {
                                       isDarkTheme = value;
                                     });
-                                    // Update the app theme
-                                    final themeMode = isDarkTheme
-                                        ? ThemeMode.dark
-                                        : ThemeMode.light;
                                     ref.read(themeModeProvider.notifier).state =
-                                        themeMode;
-
-                                    // MyApp.of(context).setThemeMode(t5hemeMode);
+                                        isDarkTheme
+                                            ? ThemeMode.dark
+                                            : ThemeMode.light;
                                   },
                                 ),
                               ],
@@ -86,16 +110,18 @@ class _HomescreenState extends ConsumerState<HomeScreen> {
           ),
         ],
       ),
-      body: PageView(
-        controller: _pageController,
-        scrollDirection: Axis.vertical,
-        children: const [
-          IntroSeccion(),
-          AboutmeSeccion(),
-          ServiceSeccion(),
-          WorksDone(),
-          ContactMe()
-        ],
+      body: SingleChildScrollView(
+        controller: _scrollController,
+        child: Column(
+          children: [
+            IntroSeccion(key: introKey),
+            AboutmeSeccion(key: aboutKey),
+            ServiceSeccion(key: servicesKey),
+            WorksDone(key: worksKey),
+            ContactMe(key: contactKey),
+            const FotterWidget()
+          ],
+        ),
       ),
     );
   }

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 
 class MenuHeader extends StatelessWidget {
-  const MenuHeader({super.key});
+  final void Function(String path)? onSectionSelected;
+  const MenuHeader({super.key, this.onSectionSelected});
 
   @override
   Widget build(BuildContext context) {
@@ -12,19 +13,26 @@ class MenuHeader extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
       width: double.infinity,
       height: 150,
-      child: isMobile ? _MobileMenu() : _DesktopMenu(),
+      child: isMobile
+          ? _MobileMenu(
+              onSectionSelected: onSectionSelected,
+            )
+          : _DesktopMenu(
+              onSectionSelected: onSectionSelected,
+            ),
     );
   }
 }
 
 class _DesktopMenu extends StatelessWidget {
-  const _DesktopMenu();
+  final void Function(String path)? onSectionSelected;
+  const _DesktopMenu({this.onSectionSelected});
 
   @override
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceAround,
-      children: const [
+      children: [
         Image(
           image: AssetImage('assets/logo-runny-dev.png'),
           width: 100,
@@ -33,19 +41,27 @@ class _DesktopMenu extends StatelessWidget {
         MenuButton(
           label: 'Inicio',
           route: '/',
+          onTap: () => onSectionSelected?.call('/'),
         ),
         MenuButton(
-          label: '¿Quien soy?',
+          label: '¿Quién soy?',
           route: 'aboutme',
+          onTap: () => onSectionSelected?.call('/aboutme'),
         ),
         MenuButton(
           label: 'Servicios',
           route: 'services',
+          onTap: () => onSectionSelected?.call('/services'),
         ),
-        MenuButton(label: 'Trabajos realizados', route: 'works'),
         MenuButton(
-          label: 'Contactactame',
+          label: 'Trabajos realizados',
+          route: 'works',
+          onTap: () => onSectionSelected?.call('/works'),
+        ),
+        MenuButton(
+          label: 'Contáctame',
           route: 'contact',
+          onTap: () => onSectionSelected?.call('/contact'),
         ),
       ],
     );
@@ -53,7 +69,8 @@ class _DesktopMenu extends StatelessWidget {
 }
 
 class _MobileMenu extends StatelessWidget {
-  const _MobileMenu();
+  final void Function(String path)? onSectionSelected;
+  const _MobileMenu({this.onSectionSelected});
 
   @override
   Widget build(BuildContext context) {
@@ -71,7 +88,9 @@ class _MobileMenu extends StatelessWidget {
             onPressed: () {
               showModalBottomSheet(
                 context: context,
-                builder: (_) => const _MobileMenuSheet(),
+                builder: (_) => _MobileMenuSheet(
+                  onSectionSelected: onSectionSelected,
+                ),
               );
             },
           ),
@@ -82,30 +101,39 @@ class _MobileMenu extends StatelessWidget {
 }
 
 class _MobileMenuSheet extends StatelessWidget {
-  const _MobileMenuSheet();
+  final void Function(String path)? onSectionSelected;
+  const _MobileMenuSheet({this.onSectionSelected});
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Column(
         mainAxisSize: MainAxisSize.min,
-        children: const [
+        children: [
           MenuButton(
             label: 'Inicio',
             route: '/',
+            onTap: () => onSectionSelected?.call('/'),
           ),
           MenuButton(
-            label: '¿Quien soy?',
+            label: '¿Quién soy?',
             route: 'aboutme',
+            onTap: () => onSectionSelected?.call('/aboutme'),
           ),
           MenuButton(
             label: 'Servicios',
             route: 'services',
+            onTap: () => onSectionSelected?.call('/services'),
           ),
-          MenuButton(label: 'Trabajos realizados', route: 'works'),
           MenuButton(
-            label: 'Contactactame',
+            label: 'Trabajos realizados',
+            route: 'works',
+            onTap: () => onSectionSelected?.call('/works'),
+          ),
+          MenuButton(
+            label: 'Contáctacme',
             route: 'contact',
+            onTap: () => onSectionSelected?.call('/contact'),
           ),
         ],
       ),
@@ -116,16 +144,15 @@ class _MobileMenuSheet extends StatelessWidget {
 class MenuButton extends StatelessWidget {
   final String label;
   final String route;
+  final VoidCallback? onTap;
 
-  const MenuButton({super.key, required this.label, required this.route});
+  const MenuButton(
+      {super.key, required this.label, required this.route, this.onTap});
 
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () {
-        context.go('/$route');
-        // Aquí puedes agregar la navegación correspondiente
-      },
+      onPressed: onTap ?? () => context.go('$route'),
       child: Text(label),
     );
   }
