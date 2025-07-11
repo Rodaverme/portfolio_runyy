@@ -1,6 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:portfolio_runny/services/send_email.dart';
+import 'package:simple_icons/simple_icons.dart';
 
 import '../widgets/backaground_page.dart';
 
@@ -79,19 +80,19 @@ class ContactMe extends StatelessWidget {
             ),
             Divider(),
             ListTile(
-              leading: Icon(Icons.email, color: Colors.blue),
+              leading: Icon(SimpleIcons.mailboxdotorg, color: SimpleIconColors.mailboxdotorg),
               title: Text('ronald15043@hotmail.com'),
             ),
             ListTile(
-              leading: Icon(Icons.phone, color: Colors.green),
+              leading: Icon(SimpleIcons.whatsapp, color: SimpleIconColors.whatsapp),
               title: Text('+57 316 821 1187'),
             ),
             ListTile(
-              leading: Icon(Icons.location_on, color: Colors.red),
+              leading: Icon(SimpleIcons.mapbox, color: Colors.cyanAccent),
               title: Text('Cali, Colombia'),
             ),
             ListTile(
-              leading: Icon(Icons.web, color: Colors.orange),
+              leading: Icon(SimpleIcons.github, color: Colors.purple),
               title: Text('https://github.com/Rodaverme'),
             ),
             ListTile(

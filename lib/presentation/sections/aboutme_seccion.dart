@@ -1,6 +1,9 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:portfolio_runny/presentation/widgets/backaground_page.dart';
+import 'package:simple_icons/simple_icons.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class AboutmeSeccion extends StatelessWidget {
   const AboutmeSeccion({super.key});
@@ -62,20 +65,47 @@ class AboutmeSeccion extends StatelessWidget {
                       height: 50,
                       child: FilledButton(
                         onPressed: () {},
-                        child: const Text('Download CV', style: TextStyle(fontSize: 18)),
+                        child: const Text('Download CV',
+                            style: TextStyle(fontSize: 18)),
                       ),
                     ),
-                    IconButton(
-                      icon: const Icon(Icons.facebook_outlined, size: 50),
-                      onPressed: () {},
+                    SizedBox(
+                      width: 10,
                     ),
                     IconButton(
-                      icon: const Icon(Icons.mail, size: 50),
-                      onPressed: () {},
+                      icon: const FaIcon(FontAwesomeIcons.linkedin,
+                          color: SimpleIconColors.facebook, size: 50),
+                      onPressed: () {
+                        go_to_page(
+                            'https://www.linkedin.com/public-profile/settings?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_self_edit_contact-info%3BEY8bB1rtT2CwoG7TbHI9YA%3D%3D');
+                      },
                     ),
                     IconButton(
-                      icon: const Icon(Icons.phone_android_rounded, size: 50),
-                      onPressed: () {},
+                      icon: const Icon(SimpleIcons.whatsapp,
+                          color: SimpleIconColors.whatsapp, size: 50),
+                      onPressed: () async {
+                        final phoneNumber =
+                            '+573168211187'; // Cambia por el número de destino
+                        final message = Uri.encodeComponent(
+                            'Hola, me gustaría obtener más información para desarrollar una App.');
+                        final url = Uri.parse(
+                            'https://wa.me/$phoneNumber?text=$message');
+                        if (await canLaunchUrl(url)) {
+                          await launchUrl(url,
+                              mode: LaunchMode.externalApplication);
+                        } else {
+                          // Manejar error si no se puede abrir WhatsApp
+                          debugPrint('No se pudo abrir WhatsApp');
+                        }
+                      },
+                    ),
+                    IconButton(
+                      icon: const Icon(SimpleIcons.github,
+                          color: Colors.purpleAccent, size: 50),
+                      onPressed: () async {
+                        await go_to_page(
+                            'https://github.com/Rodaverme?tab=repositories');
+                      },
                     ),
                   ],
                 ),
@@ -109,8 +139,17 @@ class AboutmeSeccion extends StatelessWidget {
       ),
     );
   }
-}
 
+  Future<void> go_to_page(String page) async {
+    final url = Uri.parse(page);
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url, mode: LaunchMode.externalApplication);
+    } else {
+      // Manejar error si no se puede abrir WhatsApp
+      debugPrint('No se pudo abrir Github');
+    }
+  }
+}
 
 class GradientText extends StatelessWidget {
   const GradientText(

@@ -41,7 +41,8 @@ class WorksDone extends ConsumerWidget {
                   ],
                 ),
                 const SizedBox(height: 20),
-                Expanded(
+                SizedBox(
+                  height: 450,
                   child: projectsAsync.when(
                     data: (projects) => Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),
