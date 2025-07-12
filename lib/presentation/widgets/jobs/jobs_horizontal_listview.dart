@@ -85,7 +85,7 @@ class _JobCard extends StatelessWidget {
                     height: 80,
                     width: 400,
                     decoration: BoxDecoration(
-                        color: Colors.purple,
+                        color: Colors.deepPurple,
                         borderRadius:
                             BorderRadius.only(topRight: Radius.circular(20))),
                     child: Column(

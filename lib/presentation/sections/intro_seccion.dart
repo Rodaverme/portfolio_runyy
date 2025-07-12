@@ -25,25 +25,38 @@ class IntroSeccion extends StatelessWidget {
               children: [
                 Text('Hola, soy runny', style: theme.textTheme.displaySmall),
                 const SizedBox(height: 20),
-                AnimatedTextKit(
-                  repeatForever: true,
-                  animatedTexts: [
-                    TyperAnimatedText('Flutter Developer',
-                        speed: Duration(milliseconds: 50),
-                        textStyle: theme.textTheme.displayLarge),
-                    TyperAnimatedText('Dart Developer',
-                        speed: Duration(milliseconds: 50),
-                        textStyle: theme.textTheme.displayLarge),
-                    TyperAnimatedText('Mobile Developer',
-                        speed: Duration(milliseconds: 50),
-                        textStyle: theme.textTheme.displayLarge),
-                    TyperAnimatedText('Web Developer',
-                        speed: Duration(milliseconds: 50),
-                        textStyle: theme.textTheme.displayLarge),
-                    TypewriterAnimatedText('UI/UX Designer',
-                        speed: Duration(milliseconds: 50),
-                        textStyle: theme.textTheme.displayLarge),
-                  ],
+                LayoutBuilder(
+                  builder: (context, constraints) {
+                    final screenWidth = constraints.maxWidth;
+                    final isSmall = screenWidth < 400;
+
+                    final textStyle = theme.textTheme.displayLarge?.copyWith(
+                      fontSize: isSmall ? 28 : 40, // Ajuste responsivo
+                    );
+
+                    return Center(
+                      child: AnimatedTextKit(
+                        repeatForever: true,
+                        animatedTexts: [
+                          TyperAnimatedText('Flutter Dev',
+                              speed: const Duration(milliseconds: 50),
+                              textStyle: textStyle),
+                          TyperAnimatedText('Dart Dev',
+                              speed: const Duration(milliseconds: 50),
+                              textStyle: textStyle),
+                          TyperAnimatedText('Mobile Dev',
+                              speed: const Duration(milliseconds: 50),
+                              textStyle: textStyle),
+                          TyperAnimatedText('Web Dev',
+                              speed: const Duration(milliseconds: 50),
+                              textStyle: textStyle),
+                          TypewriterAnimatedText('UI/UX',
+                              speed: const Duration(milliseconds: 50),
+                              textStyle: textStyle),
+                        ],
+                      ),
+                    );
+                  },
                 ),
                 const SizedBox(height: 20),
                 TextButton(
@@ -65,6 +78,3 @@ class IntroSeccion extends StatelessWidget {
     );
   }
 }
-
-
-

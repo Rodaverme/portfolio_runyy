@@ -21,43 +21,47 @@ class ContactMe extends StatelessWidget {
         children: [
           Positioned.fill(child: CustomPaint(painter: BackgroundPainter())),
           Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                AnimatedTextKit(
-                  animatedTexts: [
-                    TyperAnimatedText(
-                      'Contáctame',
-                      speed: const Duration(milliseconds: 50),
-                      textStyle: theme.textTheme.displayLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 40),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: isMobile
-                      ? Column(
-                          children: [
-                            _buildContactInfoCard(),
-                            const SizedBox(height: 20),
-                            _buildFormCard(context),
-                          ],
-                        )
-                      : IntrinsicHeight(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(child: _buildContactInfoCard()),
-                              const SizedBox(width: 20),
-                              Expanded(child: _buildFormCard(context)),
-                            ],
-                          ),
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(vertical: 40),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  AnimatedTextKit(
+                    animatedTexts: [
+                      TyperAnimatedText(
+                        'Contáctame',
+                        speed: const Duration(milliseconds: 50),
+                        textStyle: theme.textTheme.displayLarge?.copyWith(
+                          fontWeight: FontWeight.bold,
+                          
                         ),
-                ),
-              ],
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: 40),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                    child: isMobile
+                        ? Column(
+                            children: [
+                              _buildContactInfoCard(),
+                              const SizedBox(height: 20),
+                              _buildFormCard(context),
+                            ],
+                          )
+                        : IntrinsicHeight(
+                            child: Row(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Expanded(child: _buildContactInfoCard()),
+                                const SizedBox(width: 20),
+                                Expanded(child: _buildFormCard(context)),
+                              ],
+                            ),
+                          ),
+                  ),
+                ],
+              ),
             ),
           ),
         ],
@@ -80,11 +84,13 @@ class ContactMe extends StatelessWidget {
             ),
             Divider(),
             ListTile(
-              leading: Icon(SimpleIcons.mailboxdotorg, color: SimpleIconColors.mailboxdotorg),
+              leading: Icon(SimpleIcons.mailboxdotorg,
+                  color: SimpleIconColors.mailboxdotorg),
               title: Text('ronald15043@hotmail.com'),
             ),
             ListTile(
-              leading: Icon(SimpleIcons.whatsapp, color: SimpleIconColors.whatsapp),
+              leading:
+                  Icon(SimpleIcons.whatsapp, color: SimpleIconColors.whatsapp),
               title: Text('+57 316 821 1187'),
             ),
             ListTile(

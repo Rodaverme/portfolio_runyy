@@ -14,13 +14,13 @@ class AppTheme {
     fontWeight: FontWeight.w300,  
     color: Colors.white,
     fontFamily: 'Plus Jakarta Sans',
-    letterSpacing: 15,
+    letterSpacing: 5,
   );
   static const Color primaryColor = Colors.black;
   static final ThemeData lightTheme = ThemeData.light().copyWith(
     primaryColor: Colors.white,
     appBarTheme: AppBarTheme(
-      backgroundColor: Colors.white,
+      backgroundColor: const Color.fromARGB(255, 114, 97, 97),
       titleTextStyle: TextStyle(color: Colors.black, fontSize: 20),
       iconTheme: IconThemeData(color: Colors.black),
     ),
