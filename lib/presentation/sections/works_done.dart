@@ -18,11 +18,11 @@ class WorksDone extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final theme = Theme.of(context).textTheme;
-    final height = MediaQuery.of(context).size.height;
+    
     final projectsAsync = ref.watch(projectsProvider);
 
     return Container(
-      height: height,
+      
       width: double.infinity,
       child: Stack(
         children: [
@@ -42,7 +42,7 @@ class WorksDone extends ConsumerWidget {
                 ),
                 const SizedBox(height: 20),
                 SizedBox(
-                  height: 450,
+                  height: 350,
                   child: projectsAsync.when(
                     data: (projects) => Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 16),

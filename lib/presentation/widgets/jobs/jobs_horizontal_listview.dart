@@ -47,8 +47,8 @@ class _JobCard extends StatelessWidget {
             borderOnForeground: true,
             child: Stack(children: [
               Container(
-                width: 450,
-                height: 450,
+                width: 330,
+                height: 350,
                 color: Colors.green,
                 child: FadeInImage(
                   placeholder: AssetImage('assets/loading.gif'),
@@ -57,10 +57,10 @@ class _JobCard extends StatelessWidget {
                 ),
               ),
               Positioned(
-                left: 270,
+                left: 170,
                 child: Container(
-                  height: 120,
-                  width: 180,
+                  height: 100,
+                  width: 160,
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.only(
                       bottomLeft:
@@ -80,10 +80,10 @@ class _JobCard extends StatelessWidget {
                 ),
               ),
               Positioned(
-                  top: 380,
+                  top: 300,
                   child: Container(
-                    height: 80,
-                    width: 400,
+                    height: 60,
+                    width: 320,
                     decoration: BoxDecoration(
                         color: Colors.deepPurple,
                         borderRadius:

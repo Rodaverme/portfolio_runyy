@@ -10,22 +10,17 @@ class AboutmeSeccion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final height = MediaQuery.of(context).size.height;
     final width = MediaQuery.of(context).size.width;
 
     return SizedBox(
-      height: height, // ✅ altura consistente
+      // ✅ altura consistente
       width: width,
       child: Stack(
         children: [
           Positioned.fill(
             child: CustomPaint(painter: BackgroundPainter()),
           ),
-          SingleChildScrollView(
-              child: ConstrainedBox(
-            constraints: BoxConstraints(minHeight: height),
-            child: _buildContentSection(context),
-          )),
+          _buildContentSection(context),
         ],
       ),
     );
@@ -100,11 +95,7 @@ class AboutmeSeccion extends StatelessWidget {
                       if (await canLaunchUrl(uri)) {
                         await launchUrl(uri,
                             mode: LaunchMode.externalApplication);
-                      } else {
-                        ScaffoldMessenger.of(context).showSnackBar(
-                          SnackBar(content: Text('No se pudo abrir el enlace')),
-                        );
-                      }
+                      } else {}
                     },
                     child: const Padding(
                       padding:
@@ -117,7 +108,8 @@ class AboutmeSeccion extends StatelessWidget {
                     icon: FaIcon(FontAwesomeIcons.linkedin,
                         color: SimpleIconColors.bluesky, size: 40),
                     onPressed: () {
-                      go_to_page('https://www.linkedin.com/in/ronald-vera');
+                      go_to_page(
+                          'https://www.linkedin.com/public-profile/settings?lipi=urn%3Ali%3Apage%3Ad_flagship3_profile_self_edit_contact-info%3BFsIgPuyzQnCuaXJWholKJQ%3D%3D');
                     },
                   ),
                   IconButton(

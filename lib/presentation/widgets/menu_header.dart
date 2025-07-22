@@ -34,7 +34,7 @@ class _DesktopMenu extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceAround,
       children: [
         Image(
-          image: AssetImage('assets/logo-runny-dev.png'),
+          image: AssetImage('assets/RunyyDev_logo_transparent.png'),
           width: 100,
           height: 80,
         ),
@@ -78,9 +78,9 @@ class _MobileMenu extends StatelessWidget {
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         const Image(
-          image: AssetImage('assets/logo-runny-dev.png'),
-          width: 60,
-          height: 60,
+          image: AssetImage('assets/RunyyDev_logo_transparent.png'),
+          width: 80,
+          height: 280,
         ),
         Builder(
           builder: (context) => IconButton(
