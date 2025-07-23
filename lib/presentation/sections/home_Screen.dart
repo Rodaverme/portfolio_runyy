@@ -55,6 +55,7 @@ class _HomescreenState extends ConsumerState<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    bool isDarkTheme = Theme.of(context).brightness == Brightness.dark;
     return Scaffold(
       appBar: AppBar(
         title: MenuHeader(
@@ -110,20 +111,36 @@ class _HomescreenState extends ConsumerState<HomeScreen> {
           ),
         ],
       ),
-      body: SingleChildScrollView(
-        controller: _scrollController,
-        child: Column(
-          children: [
-            IntroSeccion(key: introKey),
-            AboutmeSeccion(key: aboutKey),
-            ServiceSeccion(key: servicesKey),
-            WorksDone(key: worksKey),
-            ContactMe(key: contactKey),
-            SizedBox(height: 20,),
-            const FotterWidget()
-          ],
+      body: Stack(children: [
+        Positioned.fill(
+            child: isDarkTheme
+                ? Image.asset(
+                    'assets/5072612.jpg',
+                    width: double.maxFinite,
+                    fit: BoxFit.cover,
+                  )
+                : Image.asset(
+                    'assets/5153829.jpg',
+                    width: double.maxFinite,
+                    fit: BoxFit.cover,
+                  )),
+        SingleChildScrollView(
+          controller: _scrollController,
+          child: Column(
+            children: [
+              IntroSeccion(key: introKey),
+              AboutmeSeccion(key: aboutKey),
+              ServiceSeccion(key: servicesKey),
+              WorksDone(key: worksKey),
+              ContactMe(key: contactKey),
+              SizedBox(
+                height: 20,
+              ),
+              const FotterWidget()
+            ],
+          ),
         ),
-      ),
+      ]),
     );
   }
 }

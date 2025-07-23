@@ -13,7 +13,6 @@ class AboutmeSeccion extends StatelessWidget {
     final width = MediaQuery.of(context).size.width;
 
     return SizedBox(
-      // ✅ altura consistente
       width: width,
       child: Stack(
         children: [

@@ -68,6 +68,7 @@ class ContactMe extends StatelessWidget {
 
   Widget _buildContactInfoCard() {
     return Card(
+      color: Colors.transparent,
       elevation: 6,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Padding(
@@ -116,6 +117,7 @@ class ContactMe extends StatelessWidget {
     final formKey = GlobalKey<FormState>();
 
     return Card(
+      color: Colors.transparent,
       elevation: 6,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
       child: Padding(
