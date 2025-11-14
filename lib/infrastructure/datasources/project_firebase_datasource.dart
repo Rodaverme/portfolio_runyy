@@ -40,6 +40,7 @@ class ProjectFirebaseDatasource extends ProjectDatasource {
         isWeb: projectResponse.isWeb,
         logo: projectResponse.logo,
         nombre: projectResponse.nombre,
+        videoUrl: projectResponse.videoUrl
       );
     }).toList();
 

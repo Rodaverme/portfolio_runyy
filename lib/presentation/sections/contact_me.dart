@@ -3,8 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:portfolio_runny/services/send_email.dart';
 import 'package:simple_icons/simple_icons.dart';
 
-import '../widgets/backaground_page.dart';
-
 class ContactMe extends StatelessWidget {
   const ContactMe({super.key});
 
@@ -12,58 +10,49 @@ class ContactMe extends StatelessWidget {
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
     final isMobile = MediaQuery.of(context).size.width < 600;
-    
 
-    return Container(
-      
-      width: double.infinity,
-      child: Stack(
-        children: [
-          Positioned.fill(child: CustomPaint(painter: BackgroundPainter())),
-          Center(
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                AnimatedTextKit(
-                  animatedTexts: [
-                    TyperAnimatedText(
-                      'Contáctame',
-                      speed: const Duration(milliseconds: 50),
-                      textStyle: theme.textTheme.displayLarge?.copyWith(
-                        fontWeight: FontWeight.bold,
-                        
-                      ),
+    return SizedBox(
+        width: double.infinity,
+        child: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              AnimatedTextKit(
+                animatedTexts: [
+                  TyperAnimatedText(
+                    'Contáctame',
+                    speed: const Duration(milliseconds: 50),
+                    textStyle: theme.textTheme.displayLarge?.copyWith(
+                      fontWeight: FontWeight.bold,
                     ),
-                  ],
-                ),
-                const SizedBox(height: 40),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                  child: isMobile
-                      ? Column(
+                  ),
+                ],
+              ),
+              const SizedBox(height: 40),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0),
+                child: isMobile
+                    ? Column(
+                        children: [
+                          _buildContactInfoCard(),
+                          const SizedBox(height: 20),
+                          _buildFormCard(context),
+                        ],
+                      )
+                    : IntrinsicHeight(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            _buildContactInfoCard(),
-                            const SizedBox(height: 20),
-                            _buildFormCard(context),
+                            Expanded(child: _buildContactInfoCard()),
+                            const SizedBox(width: 20),
+                            Expanded(child: _buildFormCard(context)),
                           ],
-                        )
-                      : IntrinsicHeight(
-                          child: Row(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Expanded(child: _buildContactInfoCard()),
-                              const SizedBox(width: 20),
-                              Expanded(child: _buildFormCard(context)),
-                            ],
-                          ),
                         ),
-                ),
-              ],
-            ),
+                      ),
+              ),
+            ],
           ),
-        ],
-      ),
-    );
+        ));
   }
 
   Widget _buildContactInfoCard() {

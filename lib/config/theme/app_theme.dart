@@ -20,7 +20,7 @@ class AppTheme {
   static final ThemeData lightTheme = ThemeData.light().copyWith(
     primaryColor: Colors.white,
     appBarTheme: AppBarTheme(
-      backgroundColor: const Color.fromARGB(255, 114, 97, 97),
+      backgroundColor: Colors.white,
       titleTextStyle: TextStyle(color: Colors.black, fontSize: 20),
       iconTheme: IconThemeData(color: Colors.black),
     ),

@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
 import 'package:portfolio_runny/presentation/sections/sections.dart';
+import 'package:portfolio_runny/presentation/sections/trayectoria_seccion.dart';
 import 'package:portfolio_runny/presentation/widgets/fotter_widget.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
@@ -21,6 +22,7 @@ class _HomescreenState extends ConsumerState<HomeScreen> {
   final introKey = GlobalKey();
   final aboutKey = GlobalKey();
   final servicesKey = GlobalKey();
+  final trayectoriaKey = GlobalKey();
   final worksKey = GlobalKey();
   final contactKey = GlobalKey();
 
@@ -33,6 +35,7 @@ class _HomescreenState extends ConsumerState<HomeScreen> {
       '/': introKey,
       '/aboutme': aboutKey,
       '/services': servicesKey,
+      '/trayectoria': trayectoriaKey,
       '/works': worksKey,
       '/contact': contactKey,
     };
@@ -111,36 +114,36 @@ class _HomescreenState extends ConsumerState<HomeScreen> {
           ),
         ],
       ),
-      body: Stack(children: [
-        Positioned.fill(
-            child: isDarkTheme
-                ? Image.asset(
-                    'assets/5072612.jpg',
-                    width: double.maxFinite,
-                    fit: BoxFit.cover,
-                  )
-                : Image.asset(
-                    'assets/5153829.jpg',
-                    width: double.maxFinite,
-                    fit: BoxFit.cover,
-                  )),
-        SingleChildScrollView(
-          controller: _scrollController,
-          child: Column(
-            children: [
-              IntroSeccion(key: introKey),
-              AboutmeSeccion(key: aboutKey),
-              ServiceSeccion(key: servicesKey),
-              WorksDone(key: worksKey),
-              ContactMe(key: contactKey),
-              SizedBox(
-                height: 20,
+        body: Stack(
+          children: [
+            // Fondo de color según el tema
+            Positioned.fill(
+              child: Container(
+                color: isDarkTheme ? Colors.black : Colors.white,
               ),
-              const FotterWidget()
-            ],
+            ),
+            // Contenido scrollable
+          SingleChildScrollView(
+            controller: _scrollController,
+            child: Column(
+              children: [
+                IntroSeccion(key: introKey),
+                AboutmeSeccion(key: aboutKey),
+                SizedBox(height: 250,),
+                ServiciosSection(key: servicesKey),
+                SizedBox(height: 250,),
+                MiTrayectoriaSection(key: trayectoriaKey),
+                SizedBox(height: 250,),
+                WorksDone(key: worksKey),
+                SizedBox(height: 250,),
+                ContactMe(key: contactKey),
+                const SizedBox(height: 20),
+                const FotterWidget(),
+              ],
+            ),
           ),
-        ),
-      ]),
+        ],
+      ),
     );
   }
 }

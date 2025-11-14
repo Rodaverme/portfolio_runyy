@@ -22,6 +22,10 @@ final appRouter = GoRouter(
       builder: (context, state) => HomeScreen(currentPath: '/services'),
     ),
     GoRoute(
+      path: '/trayectoria',
+      builder: (context, state) => HomeScreen(currentPath: '/trayectoria'),
+    ),
+    GoRoute(
       path: '/works',
       builder: (context, state) => HomeScreen(currentPath: '/works'),
     ),

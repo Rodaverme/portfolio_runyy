@@ -54,6 +54,11 @@ class _DesktopMenu extends StatelessWidget {
           onTap: () => onSectionSelected?.call('/services'),
         ),
         MenuButton(
+          label: 'Trayectoria',
+          route: 'trayectoria',
+          onTap: () => onSectionSelected?.call('/trayectoria'),
+        ),
+        MenuButton(
           label: 'Trabajos realizados',
           route: 'works',
           onTap: () => onSectionSelected?.call('/works'),

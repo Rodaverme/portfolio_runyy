@@ -20,6 +20,7 @@ class ProjectsResponse {
   final bool? isWeb;
   final String logo;
   final String nombre;
+  final String? videoUrl;
 
   ProjectsResponse({
     required this.caracteristicas,
@@ -27,6 +28,7 @@ class ProjectsResponse {
     required this.slug,
     required this.descripcion,
     required this.imagen,
+    this.videoUrl,
     this.isAndroid,
     this.isDesktop,
     this.isIos,
@@ -50,6 +52,7 @@ class ProjectsResponse {
         isWeb: json["isWeb"],
         logo: json["logo"],
         nombre: json["nombre"],
+        videoUrl: json["videoUrl"]
       );
 
   Map<String, dynamic> toJson() => {
@@ -64,5 +67,6 @@ class ProjectsResponse {
         "isWeb": isWeb,
         "logo": logo,
         "nombre": nombre,
+        "videoUrl": videoUrl
       };
 }

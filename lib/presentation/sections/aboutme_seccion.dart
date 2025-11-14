@@ -1,7 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:portfolio_runny/presentation/widgets/backaground_page.dart';
+
 import 'package:simple_icons/simple_icons.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -14,14 +14,7 @@ class AboutmeSeccion extends StatelessWidget {
 
     return SizedBox(
       width: width,
-      child: Stack(
-        children: [
-          Positioned.fill(
-            child: CustomPaint(painter: BackgroundPainter()),
-          ),
-          _buildContentSection(context),
-        ],
-      ),
+      child: _buildContentSection(context),
     );
   }
 

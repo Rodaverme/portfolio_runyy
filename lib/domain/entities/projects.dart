@@ -1,7 +1,9 @@
 class Projects {
   
   late final String slug;
+  final String? videoUrl;
   final List<String> caracteristicas;
+  final List<String>? tecnologias;
   final List<String> imagenesProject;
   final String descripcion;
   final String imagen;
@@ -14,6 +16,8 @@ class Projects {
   
 
   Projects({
+    this.tecnologias,
+    this.videoUrl,
     required this.imagenesProject,
     required this.caracteristicas,
     required this.slug,
